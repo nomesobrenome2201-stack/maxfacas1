@@ -1,0 +1,4080 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo de Facas Artesanais</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --preto:       #0f0d0b;
+      --carvao:      #1c1814;
+      --cobre:       #b87333;
+      --ouro:        #c9a84c;
+      --areia:       #e8d5b0;
+      --verde:       #4a7c59;
+      --verde-claro: #6aad80;
+    }
+
+    body { font-family: 'Inter', sans-serif; background: var(--carvao); color: var(--areia); line-height: 1.6; }
+    h1, h2, h3 { font-family: 'Montserrat', sans-serif; }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(160deg, #0f0d0b 0%, #2a1f12 60%, #3b2a1a 100%);
+      border-bottom: 2px solid var(--cobre);
+      text-align: center;
+      padding: 24px 20px 20px;
+    }
+    .logo-badge {
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+    .logo-badge img {
+      width: 160px;
+      height: auto;
+      filter: brightness(0) saturate(100%) invert(72%) sepia(30%) saturate(800%) hue-rotate(5deg) brightness(105%);
+      display: block;
+    }
+    header h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--ouro); }
+    header p.subtitulo { font-size: .75rem; letter-spacing: 4px; color: var(--areia); opacity: .7; text-transform: uppercase; margin-top: 6px; font-weight: 300; }
+    .linha-ouro { width: 100px; height: 2px; background: linear-gradient(90deg, transparent, var(--ouro), transparent); margin: 14px auto; }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--preto);
+      border-bottom: 1px solid rgba(185,115,51,.3);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: transform .3s ease;
+    }
+    nav.nav-oculto { transform: translateY(-100%); }
+    nav a { color: var(--areia); text-decoration: none; font-size: .68rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; padding: 7px 16px; border: 1px solid transparent; border-radius: 2px; transition: all .2s; }
+    nav a:hover { border-color: var(--cobre); color: var(--ouro); }
+
+    /* ── SEÇÕES ── */
+    .secao { max-width: 1200px; margin: 56px auto; padding: 0 24px; }
+    .secao-titulo { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+    .secao-titulo h2 { font-size: 1.4rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--ouro); white-space: nowrap; }
+    .secao-titulo .linha { flex: 1; height: 1px; background: linear-gradient(90deg, var(--cobre), transparent); }
+    .secao-titulo .icone { font-size: 1.3rem; }
+    .secao-subtitulo { font-size: .8rem; font-weight: 300; color: var(--areia); opacity: .65; margin-bottom: 26px; font-style: italic; }
+    .catalogo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; padding: 10px 0 30px; }
+    .catalogo-grid .card { width: 100%; }
+
+    /* ── GRID ── */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+
+    /* ── CARROSSEL ── */
+    .carousel-wrapper { position: relative; }
+    .carousel {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding: 6px 0 8px;
+      scrollbar-width: none;
+    }
+    .carousel::-webkit-scrollbar { display: none; }
+    .carousel .card { flex: 0 0 calc((100% - 60px) / 4); scroll-snap-align: start; }
+    .carousel-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: calc(100% + 50px);
+      overflow: hidden;
+    }
+    .carousel-btn {
+      flex-shrink: 0;
+      background: rgba(185,115,51,.15);
+      border: 1px solid var(--cobre);
+      color: var(--areia);
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      font-size: 1.6rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s, color .2s;
+      line-height: 1;
+    }
+    .carousel-btn:hover { background: var(--cobre); color: var(--preto); }
+    @media (max-width: 600px) {
+      .carousel .card { flex: 0 0 calc((100% - 20px) / 2); }
+      .carousel-btn { width: 28px; height: 28px; font-size: 1.2rem; flex-shrink: 0; }
+      .card-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 10px 12px;
+      }
+      .btn-escolher, .btn-add {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: linear-gradient(145deg, #1e1710, #251c12);
+      border: 1px solid rgba(185,115,51,.25);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,.5), 0 0 0 1px var(--cobre); }
+
+    /* ── FOTO ── */
+    .card-foto {
+      height: 280px;
+      background: linear-gradient(135deg, #2a1f12 0%, #1a1008 100%);
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 10px;
+      cursor: pointer;
+    }
+    .tag-modelo {
+      background: rgba(0,0,0,.68);
+      color: var(--ouro);
+      font-family: 'Montserrat', sans-serif;
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 2px;
+      border-left: 2px solid var(--cobre);
+    }
+    .tag-qty {
+      position: absolute;
+      top: 10px; right: 10px;
+      background: rgba(185,115,51,.85);
+      color: var(--preto);
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 3px 8px;
+      border-radius: 2px;
+    }
+
+    /* ── CORPO ── */
+    
+    .card-body { padding: 10px 12px 0; flex: 1; }
+    .card-body h3 { font-size: .78rem; font-weight: 600; color: var(--ouro); margin-bottom: 3px; }
+    .card-body .detalhe { font-size: .68rem; font-weight: 300; color: var(--areia); opacity: .7; line-height: 1.5; }
+
+    /* ── RODAPÉ DO CARD ── */
+    .card-footer { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border-top: 1px solid rgba(185,115,51,.2); margin-top: 10px; }
+    .preco { font-family: 'Montserrat', sans-serif; font-size: 1rem; color: var(--ouro); font-weight: 700; }
+
+    .btn-add {
+      background: var(--cobre);
+      border: none;
+      color: var(--preto);
+      font-family: 'Inter', sans-serif;
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background .2s;
+    }
+    .btn-add:hover { background: var(--ouro); }
+    .btn-add:disabled { opacity: .7; cursor: default; }
+    .btn-add.adicionado { background: var(--verde); color: #fff; }
+
+    .btn-escolher {
+      background: transparent;
+      border: 1px solid var(--cobre);
+      color: var(--cobre);
+      font-family: 'Inter', sans-serif;
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all .2s;
+    }
+    .btn-escolher:hover { background: var(--cobre); color: var(--preto); }
+
+    /* ── GRID VAZIO ── */
+    .grid-vazio { grid-column: 1 / -1; text-align: center; padding: 40px 0; font-size: .8rem; font-style: italic; color: var(--areia); opacity: .35; }
+
+    /* ── SUB-CATEGORIAS ── */
+    .subcats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .subcat-btn {
+      background: transparent;
+      border: 1px solid rgba(185,115,51,.3);
+      color: var(--areia);
+      font-family: 'Inter', sans-serif;
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all .2s;
+      opacity: .7;
+    }
+    .subcat-btn:hover { border-color: var(--cobre); color: var(--ouro); opacity: 1; }
+    .subcat-btn.ativo { background: var(--cobre); border-color: var(--cobre); color: var(--preto); font-weight: 600; opacity: 1; }
+    .subcat-carousel { display: none; }
+    .subcat-carousel.ativo { display: block; }
+    .subcat-em-breve { text-align: center; padding: 40px 0; font-size: .8rem; font-style: italic; color: var(--areia); opacity: .35; }
+
+    /* ── SEPARADOR ── */
+    .separador { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .separador hr { border: none; border-top: 1px solid rgba(185,115,51,.2); }
+
+    /* ── CARRINHO FLUTUANTE ── */
+    #btn-carrinho {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      background: var(--cobre);
+      color: var(--preto);
+      border: none;
+      border-radius: 50px;
+      padding: 13px 22px;
+      font-family: 'Inter', sans-serif;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,.5);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 200;
+      transition: background .2s, transform .2s;
+    }
+    #btn-carrinho:hover { background: var(--ouro); transform: scale(1.03); }
+    #btn-carrinho.oculto { display: none; }
+    #carrinho-count { background: var(--ouro); color: var(--preto); border-radius: 50%; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: .7rem; font-weight: 700; }
+
+    /* ── OVERLAY ── */
+    #overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 300; }
+    #overlay.ativo { display: block; }
+
+    /* ── DRAWER ── */
+    #carrinho-drawer {
+      position: fixed;
+      top: 0; right: 0;
+      width: min(400px, 100vw);
+      height: 100%;
+      background: var(--preto);
+      border-left: 2px solid var(--cobre);
+      z-index: 400;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform .3s ease;
+    }
+    #carrinho-drawer.aberto { transform: translateX(0); }
+    .drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid rgba(185,115,51,.3); }
+    .drawer-header h2 { font-size: .95rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--ouro); }
+    #btn-fechar { background: none; border: 1px solid rgba(185,115,51,.4); color: var(--areia); font-size: 1rem; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color .2s; }
+    #btn-fechar:hover { border-color: var(--cobre); color: var(--ouro); }
+    #carrinho-lista { flex: 1; overflow-y: auto; padding: 16px 22px; }
+    #carrinho-vazio { text-align: center; padding: 60px 20px; color: var(--areia); opacity: .45; }
+    #carrinho-vazio .icone-v { font-size: 44px; margin-bottom: 12px; }
+    #carrinho-vazio p { font-size: .8rem; font-style: italic; line-height: 1.7; }
+    .item-carrinho { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(185,115,51,.15); }
+    .item-foto-thumb { width: 52px; height: 52px; border-radius: 6px; background-size: cover; background-position: center; flex-shrink: 0; cursor: pointer; border: 2px solid rgba(185,115,51,.3); transition: border-color .2s; }
+    .item-foto-thumb:hover { border-color: var(--dourado); }
+    .item-info { flex: 1; min-width: 0; }
+    .item-nome { font-size: .8rem; font-weight: 500; color: var(--areia); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .item-preco-unit { font-size: .7rem; color: var(--cobre); font-family: 'Montserrat', sans-serif; }
+    .item-qty { display: flex; align-items: center; gap: 6px; }
+    .item-qty button { background: rgba(185,115,51,.2); border: 1px solid rgba(185,115,51,.3); color: var(--areia); width: 26px; height: 26px; border-radius: 4px; cursor: pointer; font-size: .9rem; display: flex; align-items: center; justify-content: center; transition: background .15s; }
+    .item-qty button:hover { background: rgba(185,115,51,.4); }
+    .qty-num { font-size: .85rem; min-width: 18px; text-align: center; color: var(--ouro); font-weight: 600; }
+    .item-subtotal { font-family: 'Montserrat', sans-serif; font-size: .8rem; font-weight: 600; color: var(--ouro); min-width: 60px; text-align: right; }
+    .drawer-footer { padding: 18px 22px; border-top: 1px solid rgba(185,115,51,.3); background: rgba(0,0,0,.3); }
+    .drawer-total { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+    .drawer-total .label { font-size: .68rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--cobre); }
+    .drawer-total .valor { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--ouro); }
+    .drawer-nota { font-size: .66rem; color: var(--areia); opacity: .5; margin-bottom: 14px; font-style: italic; }
+    #btn-whatsapp { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: #25D366; color: #fff; padding: 14px; border-radius: 4px; font-family: 'Inter', sans-serif; font-size: .82rem; font-weight: 600; letter-spacing: 1px; transition: background .2s; cursor: pointer; border: none; }
+    #btn-whatsapp:hover { background: #1ebe5a; }
+
+    /* ── MODAL SELETOR ── */
+    #modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.75);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    #modal-overlay.ativo { display: flex; }
+    .modal-box {
+      background: var(--preto);
+      border: 2px solid var(--cobre);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 820px;
+      height: min(90vh, 560px);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    /* coluna esquerda -foto */
+    .modal-esquerda {
+      width: 340px;
+      min-width: 340px;
+      flex-shrink: 0;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-foto {
+      flex: 1;
+      min-height: 0;
+      background: linear-gradient(135deg, #2a1f12 0%, #1a1008 100%);
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 4px;
+      cursor: zoom-in;
+      position: relative;
+      overflow: hidden;
+    }
+    #modal-highlight circle {
+      fill: none;
+      stroke: #ff2222;
+      stroke-width: 3px;
+      filter: drop-shadow(0 0 6px rgba(255,30,30,0.9));
+      animation: pulso-circulo 1.2s ease-in-out infinite;
+    }
+    @keyframes pulso-circulo {
+      0%, 100% { stroke-opacity: 1; stroke-width: 3px; }
+      50%       { stroke-opacity: 0.5; stroke-width: 5px; }
+    }
+    .modal-foto-hint {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.55);
+      color: var(--areia);
+      font-size: .6rem;
+      letter-spacing: 1px;
+      padding: 4px 8px;
+      border-radius: 20px;
+      pointer-events: none;
+      opacity: .85;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.93);
+      z-index: 900;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      cursor: zoom-out;
+    }
+    #lightbox.ativo { display: flex; }
+    #lightbox img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 4px;
+      user-select: none;
+      pointer-events: none;
+    }
+    #lightbox-fechar {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: rgba(185,115,51,.15);
+      border: 1px solid var(--cobre);
+      color: var(--areia);
+      font-size: 1.1rem;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    #lightbox-fechar:hover { background: var(--cobre); color: var(--preto); }
+
+    /* coluna direita -conteúdo */
+    .modal-direita {
+      flex: 1;
+      min-width: 0;
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-topo {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .modal-topo h3 { font-size: 1rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ouro); line-height: 1.4; }
+    .btn-fechar-modal { background: none; border: 1px solid rgba(185,115,51,.4); color: var(--areia); font-size: 1rem; width: 30px; height: 30px; min-width: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color .2s; }
+    .btn-fechar-modal:hover { border-color: var(--cobre); color: var(--ouro); }
+
+    .modal-subtitulo { font-size: .72rem; color: var(--areia); opacity: .55; margin-bottom: 14px; font-style: italic; }
+
+    #modal-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; flex: 1; align-content: flex-start; }
+    .chip {
+      background: rgba(185,115,51,.1);
+      border: 1px solid rgba(185,115,51,.3);
+      color: var(--areia);
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: .78rem;
+      cursor: pointer;
+      transition: all .15s;
+      font-family: 'Inter', sans-serif;
+      height: fit-content;
+    }
+    .chip:hover { border-color: var(--cobre); color: var(--ouro); }
+    .chip.selecionado { background: var(--cobre); border-color: var(--cobre); color: var(--preto); font-weight: 600; }
+
+    .modal-rodape {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0 18px;
+      border-top: 1px solid rgba(185,115,51,.2);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .modal-qty { display: flex; align-items: center; gap: 10px; }
+    .modal-qty .label { font-size: .68rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--cobre); }
+    .modal-qty button { background: rgba(185,115,51,.2); border: 1px solid rgba(185,115,51,.3); color: var(--areia); width: 30px; height: 30px; border-radius: 4px; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: background .15s; }
+    .modal-qty button:hover { background: rgba(185,115,51,.4); }
+    .modal-qty .num { font-size: 1rem; font-weight: 700; color: var(--ouro); min-width: 24px; text-align: center; }
+    .modal-total { text-align: right; }
+    .modal-total .t-label { font-size: .68rem; color: var(--cobre); letter-spacing: 1px; text-transform: uppercase; display: block; }
+    .modal-total .t-valor { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--ouro); }
+    .btn-confirmar { width: 100%; background: var(--cobre); border: none; color: var(--preto); font-family: 'Inter', sans-serif; font-size: .75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 13px; cursor: pointer; border-radius: 4px; transition: background .2s; }
+    .btn-confirmar:hover { background: var(--ouro); }
+
+    @media (max-width: 600px) {
+      .modal-box { flex-direction: column; height: auto; max-height: 95dvh; border-radius: 0; }
+      .modal-esquerda { width: 100%; min-width: 0; padding: 20px 20px 0; }
+      .modal-foto { min-height: 220px; height: 220px; }
+    }
+
+    /* ── THUMBS DO MODAL ── */
+    #modal-thumbs {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .modal-thumb {
+      width: 54px;
+      height: 54px;
+      border-radius: 4px;
+      background-size: cover;
+      background-position: center;
+      border: 2px solid rgba(185,115,51,.25);
+      cursor: pointer;
+      transition: border-color .15s, transform .15s;
+      flex-shrink: 0;
+    }
+    .modal-thumb:hover { border-color: var(--cobre); transform: scale(1.05); }
+    .modal-thumb.ativo { border-color: var(--ouro); box-shadow: 0 0 0 1px var(--ouro); }
+
+    /* ── ÍCONES SVG ── */
+    .icon { display: inline-block; vertical-align: middle; flex-shrink: 0; }
+    .hint-texto { margin-left: 4px; }
+    @media (max-width: 600px) { .hint-texto { display: none; } }
+
+    /* ── BOTÃO WHATSAPP NO CARD ── */
+    .btn-wpp {
+      background: #25D366;
+      border: none;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background .2s;
+    }
+    .btn-wpp:hover { background: #1ebe5a; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--preto); border-top: 2px solid var(--cobre); text-align: center; padding: 36px 24px; margin-top: 60px; }
+    footer .contatos { display: flex; justify-content: center; flex-wrap: wrap; gap: 28px; margin-bottom: 20px; }
+    footer .contato-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    footer .contato-item .label { font-size: .6rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--cobre); }
+    footer .contato-item a, footer .contato-item .valor { font-size: .85rem; font-weight: 300; color: var(--areia); text-decoration: none; }
+    footer .direitos { font-size: .62rem; color: var(--areia); opacity: .3; letter-spacing: 1px; margin-top: 16px; }
+
+    /* ── MOBILE HEADER BAR ── */
+    #mobile-header {
+      display: none;
+      position: sticky;
+      top: 0;
+      z-index: 150;
+      background: var(--preto);
+      border-bottom: 1px solid rgba(185,115,51,.3);
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      gap: 12px;
+      transition: transform .3s ease;
+    }
+    #mobile-header.nav-oculto { transform: translateY(-100%); }
+    #mobile-header .logo-mobile img { height: 72px; width: auto; filter: brightness(0) saturate(100%) invert(72%) sepia(30%) saturate(800%) hue-rotate(5deg) brightness(105%); }
+    #btn-hamburguer {
+      background: none; border: 1px solid rgba(185,115,51,.4); color: var(--areia);
+      width: 38px; height: 38px; border-radius: 6px; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+      flex-shrink: 0;
+    }
+    #btn-hamburguer span { display: block; width: 18px; height: 2px; background: var(--areia); border-radius: 2px; transition: all .25s; }
+    #btn-hamburguer.ativo span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    #btn-hamburguer.ativo span:nth-child(2) { opacity: 0; }
+    #btn-hamburguer.ativo span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── MOBILE NAV DRAWER ── */
+    #mobile-nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 160; }
+    #mobile-nav-overlay.ativo { display: block; }
+    #mobile-nav-drawer {
+      position: fixed; top: 0; left: 0; height: 100%; width: min(300px, 85vw);
+      background: #100d08; border-right: 2px solid var(--cobre);
+      z-index: 170; transform: translateX(-100%); transition: transform .3s ease;
+      display: flex; flex-direction: column; overflow-y: auto;
+    }
+    #mobile-nav-drawer.aberto { transform: translateX(0); }
+    .mobile-nav-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 20px; border-bottom: 1px solid rgba(185,115,51,.25);
+    }
+    .mobile-nav-header img { height: 32px; filter: brightness(0) saturate(100%) invert(72%) sepia(30%) saturate(800%) hue-rotate(5deg) brightness(105%); }
+    #btn-fechar-nav { background: none; border: 1px solid rgba(185,115,51,.4); color: var(--areia); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+    #mobile-nav-drawer nav { display: flex; flex-direction: column; padding: 10px 0; }
+    #mobile-nav-drawer nav a {
+      display: flex; align-items: center; justify-content: space-between;
+      color: var(--areia); text-decoration: none; font-size: .8rem; font-weight: 500;
+      letter-spacing: 1.5px; text-transform: uppercase; padding: 16px 22px;
+      border-bottom: 1px solid rgba(185,115,51,.1); transition: background .2s, color .2s;
+    }
+    #mobile-nav-drawer nav a::after { content: '›'; font-size: 1.2rem; color: var(--cobre); }
+    #mobile-nav-drawer nav a:hover { background: rgba(185,115,51,.08); color: var(--ouro); }
+
+    /* ── Dropdown mobile (drawer) ── */
+    #mobile-nav-drawer .nav-grupo { display: flex; flex-direction: column; border-bottom: 1px solid rgba(185,115,51,.1); }
+    #mobile-nav-drawer .nav-grupo-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      background: none; border: none; width: 100%; text-align: left;
+      color: var(--areia); font-size: .8rem; font-weight: 500;
+      letter-spacing: 1.5px; text-transform: uppercase; padding: 16px 22px;
+      cursor: pointer; transition: background .2s, color .2s; font-family: 'Inter', sans-serif;
+    }
+    #mobile-nav-drawer .nav-grupo-btn:hover { background: rgba(185,115,51,.08); color: var(--ouro); }
+    #mobile-nav-drawer .nav-grupo-btn .nav-seta { font-size: 1rem; color: var(--cobre); transition: transform .25s; display: inline-block; }
+    #mobile-nav-drawer .nav-grupo-btn.aberto { color: var(--ouro); background: rgba(185,115,51,.06); }
+    #mobile-nav-drawer .nav-grupo-btn.aberto .nav-seta { transform: rotate(90deg); }
+    #mobile-nav-drawer .nav-sub { display: none; flex-direction: column; background: rgba(0,0,0,.25); }
+    #mobile-nav-drawer .nav-sub.aberto { display: flex; }
+    #mobile-nav-drawer .nav-sub a {
+      display: block; padding: 11px 22px 11px 34px;
+      color: var(--areia); text-decoration: none; font-size: .75rem;
+      font-weight: 400; letter-spacing: .8px; text-transform: none;
+      border-bottom: 1px solid rgba(185,115,51,.06); transition: background .2s, color .2s; opacity: .8;
+    }
+    #mobile-nav-drawer .nav-sub a::after { content: none !important; }
+    #mobile-nav-drawer .nav-sub a:hover { background: rgba(185,115,51,.1); color: var(--ouro); opacity: 1; }
+
+    /* ── Dropdown desktop (nav) ── */
+    body > nav .nav-grupo { position: relative; display: inline-flex; align-items: center; }
+    body > nav .nav-grupo-btn {
+      display: flex; align-items: center; gap: 5px;
+      background: none; border: 1px solid transparent; border-radius: 2px;
+      color: var(--areia); font-size: .68rem; font-weight: 500;
+      letter-spacing: 2px; text-transform: uppercase; padding: 7px 16px;
+      cursor: pointer; transition: all .2s; font-family: 'Inter', sans-serif;
+    }
+    body > nav .nav-grupo-btn:hover,
+    body > nav .nav-grupo:hover .nav-grupo-btn { border-color: var(--cobre); color: var(--ouro); }
+    body > nav .nav-grupo .nav-seta { font-size: .75rem; color: var(--cobre); transition: transform .2s; display: inline-block; }
+    body > nav .nav-grupo:hover .nav-seta { transform: rotate(90deg); }
+    body > nav .nav-sub {
+      display: none; position: absolute; top: calc(100% + 6px); left: 0;
+      min-width: 210px; background: #100d08;
+      border: 1px solid rgba(185,115,51,.4); border-radius: 4px;
+      flex-direction: column; z-index: 200; box-shadow: 0 8px 24px rgba(0,0,0,.7);
+      padding: 4px 0;
+    }
+    body > nav .nav-grupo:hover .nav-sub { display: flex; }
+    body > nav .nav-sub a {
+      display: block; padding: 9px 18px; color: var(--areia); text-decoration: none;
+      font-size: .65rem; font-weight: 400; letter-spacing: 1px; text-transform: none;
+      border-bottom: 1px solid rgba(185,115,51,.08); transition: background .15s, color .15s; white-space: nowrap;
+    }
+    body > nav .nav-sub a:last-child { border-bottom: none; }
+    body > nav .nav-sub a:hover { background: rgba(185,115,51,.12); color: var(--ouro); }
+    body > nav .nav-sub a::after { content: none !important; }
+
+    /* ══════════════════════════════
+       MOBILE — até 768px
+    ══════════════════════════════ */
+    @media (max-width: 768px) {
+
+      /* Esconder header e nav desktop */
+      header { display: none; }
+      nav { display: none; }
+
+      /* Mostrar barra mobile */
+      #mobile-header { display: flex; }
+
+      /* Seção */
+      .secao { padding: 0 14px; margin: 36px auto; }
+      .secao-titulo h2 { font-size: 1rem; letter-spacing: 1px; }
+
+      /* Subcategorias — rolagem horizontal */
+      .subcats {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 6px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .subcats::-webkit-scrollbar { display: none; }
+      .subcat-btn { white-space: nowrap; font-size: .6rem; padding: 5px 12px; flex-shrink: 0; }
+
+      /* Carrossel — esconder botões, usar scroll touch */
+      .carousel-btn { display: none; }
+      .carousel-wrapper { width: 100%; gap: 0; }
+      .carousel { gap: 10px; padding: 4px 4px 10px; }
+      .carousel .card { flex: 0 0 calc((100% - 10px) / 2); }
+
+      /* Card */
+      .card-foto { height: 180px; }
+      .card-body { padding: 12px 12px 8px; }
+      .card-body h3 { font-size: .75rem; }
+      .card-body .detalhe { display: none; }
+      .card-footer { padding: 10px 12px; gap: 8px; flex-direction: column; align-items: stretch; }
+      .btn-escolher, .btn-add, .btn-wpp { width: 100%; justify-content: center; text-align: center; font-size: .75rem; }
+      .preco { font-size: 1rem; }
+
+      /* Botão carrinho */
+      #btn-carrinho { bottom: 16px; right: 16px; padding: 11px 16px; font-size: .75rem; }
+
+      /* Drawer — largura total no mobile */
+      #carrinho-drawer { width: 100vw; }
+
+      /* Chips do modal */
+      .chip { font-size: .68rem; padding: 6px 12px; }
+
+      /* Grid de 2 colunas no mobile (Brindes, Catálogo) */
+      .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .catalogo-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+      /* Subtítulo da seção */
+      .secao-subtitulo { font-size: .72rem; }
+
+      /* Footer */
+      footer { padding: 28px 16px; margin-top: 40px; }
+      footer .contatos { gap: 18px; }
+    }
+
+    /* ══════════════════════════════
+       MOBILE PEQUENO — até 420px
+    ══════════════════════════════ */
+    @media (max-width: 420px) {
+      .carousel .card { flex: 0 0 calc((100% - 10px) / 2); }
+      header h1 { font-size: 1.2rem; }
+      .modal-box { border-radius: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── ÍCONES SVG (reutilizáveis via <use>) ── -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="ic-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+    <path d="M18 6 6 18M6 6l12 12"/>
+  </symbol>
+  <symbol id="ic-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+  </symbol>
+  <symbol id="ic-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.84 12 19.79 19.79 0 0 1 1.77 3.33 2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.15A16 16 0 0 0 16.06 16.3l1.42-1.42a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+  </symbol>
+  <symbol id="ic-zoom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+    <circle cx="11" cy="11" r="8"/>
+    <path d="m21 21-4.35-4.35M11 8v6M8 11h6"/>
+  </symbol>
+  <symbol id="ic-knife" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 20a2 2 0 1 0 4 0 2 2 0 0 0-4 0z"/>
+    <path d="m4 20 14-14"/><path d="M11.5 6.5 8 10"/>
+    <path d="M20 4c-2.5 0-4 1.5-4 4l3.5 3.5c3 0 4-2 4-4S22.5 4 20 4z"/>
+  </symbol>
+  <symbol id="ic-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+  </symbol>
+  <symbol id="ic-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="8" r="6"/>
+    <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+  </symbol>
+  <symbol id="ic-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+  </symbol>
+  <symbol id="ic-hammer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m15 12-8.5 8.5c-.83.83-2.17.83-3 0a2.12 2.12 0 0 1 0-3L12 9"/>
+    <path d="M17.64 15 22 10.64"/>
+    <path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91"/>
+  </symbol>
+</svg>
+
+<!-- BARRA MOBILE -->
+<div id="mobile-header">
+  <button id="btn-hamburguer" onclick="toggleMenuMobile()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="logo-mobile">
+    <img src="fotos/image__1___1_-removebg-preview.png" alt="Max Facas Artesanais" />
+  </div>
+  <div style="width:38px"></div>
+</div>
+
+<!-- DRAWER MENU MOBILE -->
+<div id="mobile-nav-overlay" onclick="fecharMenuMobile()"></div>
+<div id="mobile-nav-drawer">
+  <div class="mobile-nav-header">
+    <img src="fotos/image__1___1_-removebg-preview.png" alt="Max Facas Artesanais" />
+    <button id="btn-fechar-nav" onclick="fecharMenuMobile()">&#10005;</button>
+  </div>
+  <nav>
+    <div class="nav-grupo">
+      <button class="nav-grupo-btn" onclick="toggleNavGrupo(this)">Picanheiras <span class="nav-seta">›</span></button>
+      <div class="nav-sub">
+        <a onclick="navParaSubcat('picanheiras','10pol')">Picanheira 10pol</a>
+        <a onclick="navParaSubcat('picanheiras','8pol')">Picanheira 8pol</a>
+        <a onclick="navParaSubcat('picanheiras','cabo-montado')">Cabo Montado 10pol</a>
+        <a onclick="navParaSubcat('picanheiras','premium')">Premium 10pol</a>
+        <a onclick="navParaSubcat('picanheiras','8-5pol')">Picanheira 8,5pol</a>
+        <a onclick="navParaSubcat('picanheiras','6pol')">Picanheira 6pol</a>
+      </div>
+    </div>
+    <div class="nav-grupo">
+      <button class="nav-grupo-btn" onclick="toggleNavGrupo(this)">Churrasco <span class="nav-seta">›</span></button>
+      <div class="nav-sub">
+        <a onclick="navParaSubcat('churrasco','10pol')">Churrasco 10pol</a>
+        <a onclick="navParaSubcat('churrasco','9pol')">Churrasco 9pol</a>
+        <a onclick="navParaSubcat('churrasco','5-5pol')">Churrasco 5,5pol</a>
+      </div>
+    </div>
+    <div class="nav-grupo">
+      <button class="nav-grupo-btn" onclick="toggleNavGrupo(this)">Especiais <span class="nav-seta">›</span></button>
+      <div class="nav-sub">
+        <a onclick="navParaSubcat('especiais','campeira')">Campeira Carbono</a>
+        <a onclick="navParaSubcat('especiais','cutelo')">Cutelo 9pol</a>
+        <a onclick="navParaSubcat('especiais','fulltang')">Fulltang 8/9pol</a>
+        <a onclick="navParaSubcat('especiais','fulltang-10')">Full Tang 10pol</a>
+        <a onclick="navParaSubcat('especiais','gold')">Gold 9/10pol</a>
+        <a onclick="navParaSubcat('especiais','adaga')">Adaga</a>
+        <a onclick="navParaSubcat('especiais','bowie')">Bowie 10pol</a>
+        <a onclick="navParaSubcat('especiais','ximango')">Ximango 12pol</a>
+        <a onclick="navParaSubcat('especiais','lingua-ximango')">Língua de Ximango</a>
+      </div>
+    </div>
+    <div class="nav-grupo">
+      <button class="nav-grupo-btn" onclick="toggleNavGrupo(this)">Kits <span class="nav-seta">›</span></button>
+      <div class="nav-sub">
+        <a onclick="navParaSubcat('kits','duplo')">Kit Duplo</a>
+        <a onclick="navParaSubcat('kits','petisqueira')">Petisqueira + Expositor</a>
+        <a onclick="navParaSubcat('kits','espeto')">Kit Espeto 5 peças</a>
+        <a onclick="navParaSubcat('kits','importado')">Kit Churrasco Importado</a>
+      </div>
+    </div>
+    <a href="#brindes" onclick="fecharMenuMobile()">Brindes Personalizados</a>
+    <div class="nav-grupo">
+      <button class="nav-grupo-btn" onclick="toggleNavGrupo(this)">Importados <span class="nav-seta">›</span></button>
+      <div class="nav-sub">
+        <a onclick="navParaSubcat('importados','cutelos')">Cutelos</a>
+        <a onclick="navParaSubcat('importados','mini-faca')">Mini Faca</a>
+        <a onclick="navParaSubcat('importados','coreadeira')">Coreadeira</a>
+      </div>
+    </div>
+    <div class="nav-grupo">
+      <button class="nav-grupo-btn" onclick="toggleNavGrupo(this)">Acessórios <span class="nav-seta">›</span></button>
+      <div class="nav-sub">
+        <a onclick="navParaSubcat('acessorios','tabuas')">Tábuas</a>
+        <a onclick="navParaSubcat('acessorios','isqueiro')">Isqueiro Temático</a>
+        <a onclick="navParaSubcat('acessorios','chairas')">Chairas</a>
+        <a onclick="navParaSubcat('acessorios','garfos')">Garfos</a>
+        <a onclick="navParaSubcat('acessorios','mini-chaveiro')">Mini Faca Chaveiro</a>
+        <a onclick="navParaSubcat('acessorios','expositor')">Expositor</a>
+        <a onclick="navParaSubcat('acessorios','caixinha')">Caixinha</a>
+      </div>
+    </div>
+    <a href="#catalogo" onclick="fecharMenuMobile()">Catálogo Completo</a>
+  </nav>
+</div>
+
+<header>
+  <div class="logo-badge"><img src="fotos/image__1___1_-removebg-preview.png" alt="Max Facas Artesanais" /></div>
+  <p class="subtitulo">Facas Artesanais &bull; Direto do Fabricante</p>
+  <div class="linha-ouro"></div>
+</header>
+
+<nav>
+  <div class="nav-grupo">
+    <button class="nav-grupo-btn">Picanheiras <span class="nav-seta">›</span></button>
+    <div class="nav-sub">
+      <a onclick="navParaSubcat('picanheiras','10pol')">Picanheira 10pol</a>
+      <a onclick="navParaSubcat('picanheiras','8pol')">Picanheira 8pol</a>
+      <a onclick="navParaSubcat('picanheiras','cabo-montado')">Cabo Montado 10pol</a>
+      <a onclick="navParaSubcat('picanheiras','premium')">Premium 10pol</a>
+      <a onclick="navParaSubcat('picanheiras','8-5pol')">Picanheira 8,5pol</a>
+      <a onclick="navParaSubcat('picanheiras','6pol')">Picanheira 6pol</a>
+    </div>
+  </div>
+  <div class="nav-grupo">
+    <button class="nav-grupo-btn">Churrasco <span class="nav-seta">›</span></button>
+    <div class="nav-sub">
+      <a onclick="navParaSubcat('churrasco','10pol')">Churrasco 10pol</a>
+      <a onclick="navParaSubcat('churrasco','9pol')">Churrasco 9pol</a>
+      <a onclick="navParaSubcat('churrasco','5-5pol')">Churrasco 5,5pol</a>
+    </div>
+  </div>
+  <div class="nav-grupo">
+    <button class="nav-grupo-btn">Especiais <span class="nav-seta">›</span></button>
+    <div class="nav-sub">
+      <a onclick="navParaSubcat('especiais','campeira')">Campeira Carbono</a>
+      <a onclick="navParaSubcat('especiais','cutelo')">Cutelo 9pol</a>
+      <a onclick="navParaSubcat('especiais','fulltang')">Fulltang 8/9pol</a>
+      <a onclick="navParaSubcat('especiais','fulltang-10')">Full Tang 10pol</a>
+      <a onclick="navParaSubcat('especiais','gold')">Gold 9/10pol</a>
+      <a onclick="navParaSubcat('especiais','adaga')">Adaga</a>
+      <a onclick="navParaSubcat('especiais','bowie')">Bowie 10pol</a>
+      <a onclick="navParaSubcat('especiais','ximango')">Ximango 12pol</a>
+      <a onclick="navParaSubcat('especiais','lingua-ximango')">Língua de Ximango</a>
+    </div>
+  </div>
+  <div class="nav-grupo">
+    <button class="nav-grupo-btn">Kits <span class="nav-seta">›</span></button>
+    <div class="nav-sub">
+      <a onclick="navParaSubcat('kits','duplo')">Kit Duplo</a>
+      <a onclick="navParaSubcat('kits','petisqueira')">Petisqueira + Expositor</a>
+      <a onclick="navParaSubcat('kits','espeto')">Kit Espeto 5 peças</a>
+      <a onclick="navParaSubcat('kits','importado')">Kit Churrasco Importado</a>
+    </div>
+  </div>
+  <a href="#brindes">Brindes Personalizados</a>
+  <div class="nav-grupo">
+    <button class="nav-grupo-btn">Importados <span class="nav-seta">›</span></button>
+    <div class="nav-sub">
+      <a onclick="navParaSubcat('importados','cutelos')">Cutelos</a>
+      <a onclick="navParaSubcat('importados','mini-faca')">Mini Faca</a>
+      <a onclick="navParaSubcat('importados','coreadeira')">Coreadeira</a>
+    </div>
+  </div>
+  <div class="nav-grupo">
+    <button class="nav-grupo-btn">Acessórios <span class="nav-seta">›</span></button>
+    <div class="nav-sub">
+      <a onclick="navParaSubcat('acessorios','tabuas')">Tábuas</a>
+      <a onclick="navParaSubcat('acessorios','isqueiro')">Isqueiro Temático</a>
+      <a onclick="navParaSubcat('acessorios','chairas')">Chairas</a>
+      <a onclick="navParaSubcat('acessorios','garfos')">Garfos</a>
+      <a onclick="navParaSubcat('acessorios','mini-chaveiro')">Mini Faca Chaveiro</a>
+      <a onclick="navParaSubcat('acessorios','expositor')">Expositor</a>
+      <a onclick="navParaSubcat('acessorios','caixinha')">Caixinha</a>
+    </div>
+  </div>
+  <a href="#catalogo">Catálogo Completo</a>
+</nav>
+
+<button id="btn-carrinho" class="oculto" onclick="abrirCarrinho()">
+  <svg class="icon" width="18" height="18"><use href="#ic-cart"/></svg> Carrinho <span id="carrinho-count">0</span>
+</button>
+
+<div id="overlay" onclick="fecharCarrinho()"></div>
+
+<aside id="carrinho-drawer">
+  <div class="drawer-header">
+    <h2><svg class="icon" width="16" height="16"><use href="#ic-cart"/></svg> Meu Pedido</h2>
+    <button id="btn-fechar" onclick="fecharCarrinho()"><svg class="icon" width="14" height="14"><use href="#ic-x"/></svg></button>
+  </div>
+  <div id="carrinho-lista">
+    <div id="carrinho-vazio">
+      <div class="icone-v"><svg class="icon" width="44" height="44"><use href="#ic-knife"/></svg></div>
+      <p>Nenhum produto adicionado.<br>Escolha seus modelos preferidos!</p>
+    </div>
+  </div>
+  <div class="drawer-footer">
+    <div class="drawer-total">
+      <span class="label">Total</span>
+      <span class="valor" id="total-valor">R$ 0,00</span>
+    </div>
+    <p class="drawer-nota">* Bainha em couro inclusa em cada faca</p>
+    <button id="btn-whatsapp" onclick="pedirWhatsApp()"><svg class="icon" width="16" height="16"><use href="#ic-phone"/></svg> Pedir pelo WhatsApp</button>
+  </div>
+</aside>
+
+
+<!-- ═══ PICANHEIRAS ═══ -->
+<section class="secao" id="picanheiras">
+  <div class="secao-titulo">
+    <span class="icone"><svg class="icon" width="20" height="20"><use href="#ic-knife"/></svg></span>
+    <h2>Picanheiras</h2>
+    <div class="linha"></div>
+  </div>
+  <div class="subcats">
+    <button class="subcat-btn ativo" onclick="mostrarSubcat('picanheiras','10pol',this)">Picanheira 10pol</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('picanheiras','8pol',this)">Picanheira 8pol</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('picanheiras','cabo-montado',this)">Cabo Montado 10pol</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('picanheiras','premium',this)">Premium 10pol</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('picanheiras','8-5pol',this)">Picanheira 8,5pol</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('picanheiras','6pol',this)">Picanheira 6pol</button>
+  </div>
+
+  <div class="subcat-carousel" id="picanheiras-6pol">
+    <p class="secao-subtitulo">Lâmina 6 polegadas · Aço carbono · Cabo em madeira natural · Bainha em couro inclusa · R$ 82,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('picanheiras-6pol', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-picanheiras-6pol">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-6pol-1.jpeg')">
+        <span class="tag-qty">5 unidades</span>
+        <span class="tag-modelo">6 Polegadas</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira 6pol. - Carbono</h3>
+        <p class="detalhe">Aço carbono · Cabo em madeira natural · Bainha em couro inclusa.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 82,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-6pol')">Ver Produto</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('picanheiras-6pol', 1)">&#8250;</button>
+    </div>
+  </div>
+
+  <div class="subcat-carousel" id="picanheiras-8pol">
+    <p class="secao-subtitulo">Lâmina 8 polegadas · 3mm · Bainha em couro inclusa · R$ 125,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('picanheiras', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-picanheiras">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-tematicas.jpg')">
+        <span class="tag-qty">10 modelos</span>
+        <span class="tag-modelo">Temáticas - Lote 1</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheiras Temáticas - Lote 1</h3>
+        <p class="detalhe">Sem Entalhe, Sextou, Pescaria, Patrão, Revólver, O Agro Não Para, Entalhada Mod.1, Churrascada, Entalhada Mod.2, Mestre do Churrasco.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 125,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-tematicas')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/WhatsApp Image 2026-05-06 at 10.10.35 (2).jpeg')">
+        <span class="tag-qty">11 modelos</span>
+        <span class="tag-modelo">Temáticas — Lote 3</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheiras Temáticas - Lote 3</h3>
+        <p class="detalhe">Sem Entalhe, Fusca, Entalhada, Pescaria, Patrão, Super Pai, Chamas, Kombi, Entalhada Mod.2, Patrão Mod.2, Justiceiro.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 125,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-tematicas-3')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/WhatsApp Image 2026-05-06 at 10.10.35 (3).jpeg')">
+        <span class="tag-qty">10 modelos</span>
+        <span class="tag-modelo">Temáticas - Lote 2</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheiras Temáticas - Lote 2</h3>
+        <p class="detalhe">Super Pai, Entalhada Mod.1, 4X4, Mestre do Churrasco, Entalhada Mod.2, Touro, Brasil, Agro é Top, Kombi, Legendários.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 125,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-tematicas-2')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-times.jpg')">
+        <span class="tag-qty">7 times · 10 facas</span>
+        <span class="tag-modelo">Times de Futebol</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheiras Times - Lote 1</h3>
+        <p class="detalhe">Cabo em resina na cor do time, escudo e nome gravados na lâmina. São Paulo, Flamengo, Santos, Vasco, Atlético Mineiro, Botafogo, Grêmio.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 125,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-times')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/WhatsApp Image 2026-05-06 at 10.10.35 (1).jpeg')">
+        <span class="tag-qty">6 times · 10 facas</span>
+        <span class="tag-modelo">Times de Futebol</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheiras Times - Lote 2</h3>
+        <p class="detalhe">Cabo em resina na cor do time, escudo e nome gravados na lâmina. Palmeiras, Flamengo, Vasco, Santos, São Paulo, Fluminense.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 125,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-times-2')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/WhatsApp Image 2026-05-06 at 10.10.34 (1).jpeg')">
+        <span class="tag-qty">10 modelos</span>
+        <span class="tag-modelo">Temáticas — Lote 4</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheiras Temáticas - Lote 4</h3>
+        <p class="detalhe">AR-15, Caminhão, Mestre do Churrasco, Bolsonaro, Patrão, Pescaria, Mestre do Churrasco Mod.2, Justiceiro, Entalhada, Revólver.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 125,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-tematicas-4')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('picanheiras', 1)">&#8250;</button>
+    </div>
+  </div>
+
+  <div class="subcat-carousel" id="picanheiras-8-5pol">
+    <p class="secao-subtitulo">Lâmina 8,5 polegadas · 2mm · Cabo montado · Bainha em couro inclusa · R$ 125,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('picanheiras-8-5pol', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-picanheiras-8-5pol">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-8-5pol.jpeg')">
+        <span class="tag-qty">10 modelos</span>
+        <span class="tag-modelo">Cabo Montado</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira 8,5pol. - Cabo Montado</h3>
+        <p class="detalhe">Cabos montados com diversos acabamentos: resina colorida, cabo natural e combinações com madeira. Bainha em couro inclusa.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 125,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-8-5pol')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('picanheiras-8-5pol', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel ativo" id="picanheiras-10pol">
+    <p class="secao-subtitulo">Lâmina 10 polegadas · 3mm · Bainha em couro inclusa · R$ 145,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('picanheiras-10pol', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-picanheiras-10pol">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/pic-10pol-times.jpeg')">
+        <span class="tag-qty">10 times</span>
+        <span class="tag-modelo">Times de Futebol</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira 10pol. - Times</h3>
+        <p class="detalhe">Santos, Fluminense, Internacional, Vitória, Corinthians, Vasco (2 modelos), Botafogo, Cruzeiro, Atlético Mineiro. Escudo gravado na lâmina.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 145,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-10pol-times')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-10pol-tematicas-lote8.jpeg')">
+        <span class="tag-qty">11 modelos</span>
+        <span class="tag-modelo">Temáticas — Lote 8</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira 10pol. - Temáticas Lote 8</h3>
+        <p class="detalhe">Mestre do Churrasco, Skol, Itaipava, Absolut Vodka, Arabescos, Churrascoterapia, Black Label, Heineken, FIFA World Cup 2026.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 145,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-10pol-tematicas-8')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-10pol-tematicas-lote7.jpeg')">
+        <span class="tag-qty">10 modelos</span>
+        <span class="tag-modelo">Temáticas — Lote 7</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira 10pol. - Temáticas Lote 7</h3>
+        <p class="detalhe">Iron Maiden, Mestre do Churrasco, Budweiser, Red Hot Chili Peppers, Kombi, Yeshua Hamashia, Cavalos, Nossa Senhora, Arabescos.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 145,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-10pol-tematicas-7')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-10pol-tematicas-lote6.jpeg')">
+        <span class="tag-qty">10 modelos</span>
+        <span class="tag-modelo">Temáticas — Lote 6</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira 10pol. - Temáticas Lote 6</h3>
+        <p class="detalhe">Agro É Top, Sextou!!!, Moto, Escavadeira, Jack Skellington, Campari, Bruxa, Correntes, Ps Amo Minha Família, Brasil.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 145,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-10pol-tematicas-6')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-10pol-tematicas-lote5.jpeg')">
+        <span class="tag-qty">10 modelos</span>
+        <span class="tag-modelo">Temáticas — Lote 5</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira 10pol. - Temáticas Lote 5</h3>
+        <p class="detalhe">Tridente, AC/DC, Arabescos, Eu Sou Filho do Mato, Justiceiro, Nossa Senhora, Quem Pesca Vive Mais, Maçonaria, Dragão.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 145,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-10pol-tematicas-5')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-10pol-tematicas-lote4.jpeg')">
+        <span class="tag-qty">10 modelos</span>
+        <span class="tag-modelo">Temáticas — Lote 4</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira 10pol. - Temáticas Lote 4</h3>
+        <p class="detalhe">Flávio Bolsonaro 2026, Nirvana, Tá Nervoso? Vai Pescar!, Yeshua Hamashia, Arara, Correntes, Fusca (2 modelos), Tião Carreiro Só Modão, Kombi.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 145,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-10pol-tematicas-4')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-10pol-tematicas-lote3.jpeg')">
+        <span class="tag-qty">10 modelos</span>
+        <span class="tag-modelo">Temáticas — Lote 3</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira 10pol. - Temáticas Lote 3</h3>
+        <p class="detalhe">Cavalos, Arabescos, Kiss, Porco, Eu Sou Filho do Mato, Campari, Sem Entalhe, Deus é Fiel, Metallica.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 145,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-10pol-tematicas-3')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-10pol-tematicas-lote2.jpeg')">
+        <span class="tag-qty">10 modelos</span>
+        <span class="tag-modelo">Temáticas — Lote 2</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira 10pol. - Temáticas Lote 2</h3>
+        <p class="detalhe">Caçador, Entalhada (2 modelos), Correntes, Kombi, Flávio Bolsonaro 2026, Sextou!!!, Churrasco, Escorpião, Escopeta.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 145,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-10pol-tematicas-2')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-10pol-tematicas-lote1.jpeg')">
+        <span class="tag-qty">10 modelos</span>
+        <span class="tag-modelo">Temáticas — Lote 1</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira 10pol. - Temáticas Lote 1</h3>
+        <p class="detalhe">Lobo, FIFA World Cup 2026 (2 modelos), Agro É Top, Pescaria, Pai Melhor do Mundo, Águia, Entalhada, Porsche, Kombi.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 145,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-10pol-tematicas')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-10pol-times-lote3.jpeg')">
+        <span class="tag-qty">10 times</span>
+        <span class="tag-modelo">Times de Futebol — Lote 3</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira 10pol. - Times Lote 3</h3>
+        <p class="detalhe">Santos, São Paulo (3 modelos), Athletico-PR, Internacional, Fluminense (2 modelos), Atlético-MG, Coritiba. Escudo gravado na lâmina.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 145,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-10pol-times-3')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-10pol-times-lote4.jpeg')">
+        <span class="tag-qty">10 times</span>
+        <span class="tag-modelo">Times de Futebol — Lote 4</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira 10pol. - Times Lote 4</h3>
+        <p class="detalhe">Grêmio (2 modelos), Corinthians (3 modelos), Atlético-MG, Santos, São Paulo, Vitória, Cruzeiro. Escudo gravado na lâmina.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 145,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-10pol-times-4')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-10pol-times-lote2.jpeg')">
+        <span class="tag-qty">10 times</span>
+        <span class="tag-modelo">Times de Futebol — Lote 2</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira 10pol. - Times Lote 2</h3>
+        <p class="detalhe">Cruzeiro, Santos (2 modelos), Fluminense, Atlético-MG, São Paulo, Corinthians, Vitória, Sport Club do Recife, Internacional. Escudo gravado na lâmina.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 145,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-10pol-times-2')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('picanheiras-10pol', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel" id="picanheiras-premium">
+    <p class="secao-subtitulo">10 polegadas · 4mm · Aço Inox 420C · Hot Wheels no cabo · Bainha em couro inclusa · R$ 209,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('picanheiras-premium', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-picanheiras-premium">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-premium-hotwheels-1.jpeg')">
+        <span class="tag-qty">9 modelos</span>
+        <span class="tag-modelo">Hot Wheels</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira Premium 10pol. - Hot Wheels</h3>
+        <p class="detalhe">Preto, Amarelo Mod.1, Azul, Verde, Rosa, Amarelo Mod.2, Verde Escuro, Azul Marinho, Branco.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 209,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-premium-hotwheels-1')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-premium-times-1.jpeg')">
+        <span class="tag-qty">6 modelos</span>
+        <span class="tag-modelo">Times</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira Premium 10pol. - Times</h3>
+        <p class="detalhe">São Paulo, São Paulo Mod.2, Corinthians, Corinthians Mod.2, São Paulo Mod.3, São Paulo Mod.4.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 175,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-premium-times-1')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-premium-lote2-1.jpeg')">
+        <span class="tag-qty">13 modelos</span>
+        <span class="tag-modelo">Lote 2</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira Premium 10pol. - Lote 2</h3>
+        <p class="detalhe">Entalhada, Entalhada Mod.2, Brasil, Gado, Rogai Por Nós, Heineken, Arabesco Mod.1, Arabesco Mod.2, Heineken Mod.2, Heineken Mod.3, Brasil Mod.2, Maçonaria, Brasil Mod.3.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 175,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-premium-lote2-1')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('picanheiras-premium', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel" id="picanheiras-cabo-montado">
+    <p class="secao-subtitulo">10 polegadas · 4mm · Inox polido · Cabo montado em camadas · Bainha em couro inclusa · R$ 165,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('picanheiras-cabo-montado', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-picanheiras-cabo-montado">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-cabo-montado-10pol-1.jpeg')">
+        <span class="tag-qty">Diversos modelos</span>
+        <span class="tag-modelo">Cabo Montado</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira 10pol. - Cabo Montado</h3>
+        <p class="detalhe">10 polegadas · 4mm · Inox polido · Cabo montado em camadas de madeira/resina · Bainha em couro inclusa. Diversas gravações disponíveis.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 165,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-cabo-montado')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-cabo-montado-10pol-2.jpeg')">
+        <span class="tag-qty">11 modelos</span>
+        <span class="tag-modelo">Cabo Montado — Lote 2</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira 10pol. - Cabo Montado Lote 2</h3>
+        <p class="detalhe">Heineken, Só Toca Modão, Maçonaria, Opala, Justiceiro, Revólver, Gado Mod.1, Gado Mod.2, Pai Um Amigo Para Sempre, Nossa Senhora, Baralho.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 142,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-cabo-montado-2')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-cabo-montado-10pol-3.jpeg')">
+        <span class="tag-qty">11 modelos</span>
+        <span class="tag-modelo">Cabo Montado — Lote 3</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira 10pol. - Cabo Montado Lote 3</h3>
+        <p class="detalhe">Opala, Sem Entalhe Mod.1, Já Pode ou Tá Cedo?, Sem Entalhe Mod.2, Pátria Amada Brasil, Camionete, Cavalo, Escavadeira, Pai Um Amigo Para Sempre, Correntes, Peixe.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 142,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-cabo-montado-3')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/picanheiras-cabo-montado-10pol-4.jpeg')">
+        <span class="tag-qty">9 modelos</span>
+        <span class="tag-modelo">Cabo Montado — Lote 4</span>
+      </div>
+      <div class="card-body">
+        <h3>Picanheira 10pol. - Cabo Montado Lote 4</h3>
+        <p class="detalhe">Heineken, Super Pai, Justiceiro, Mestre do Churrasco, Punisher, Sextou, Entalhada, Sem Entalhe Mod.1, Sem Entalhe Mod.2.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 142,00</span>
+        <button class="btn-escolher" onclick="abrirModal('pic-cabo-montado-4')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('picanheiras-cabo-montado', 1)">&#8250;</button>
+    </div>
+  </div>
+</section>
+
+<div class="separador"><hr/></div>
+
+<!-- ═══ CHURRASCO ═══ -->
+<section class="secao" id="churrasco">
+  <div class="secao-titulo">
+    <span class="icone"><svg class="icon" width="20" height="20"><use href="#ic-flame"/></svg></span>
+    <h2>Churrasco</h2>
+    <div class="linha"></div>
+  </div>
+  <div class="subcats">
+    <button class="subcat-btn ativo" onclick="mostrarSubcat('churrasco','10pol',this)">Churrasco 10pol</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('churrasco','9pol',this)">Churrasco 9pol</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('churrasco','5-5pol',this)">Churrasco 5,5pol</button>
+  </div>
+
+  <div class="subcat-carousel" id="churrasco-5-5pol">
+    <p class="secao-subtitulo">5,5 polegadas · 2mm · Inox 420c · Bainha em couro inclusa · R$ 89,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('churrasco-5-5pol', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-churrasco-5-5pol">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/churrasco-5-5pol-1.jpeg')">
+        <span class="tag-qty">4 modelos</span>
+        <span class="tag-modelo">5,5 Polegadas</span>
+      </div>
+      <div class="card-body">
+        <h3>Faca Churrasco 5,5pol. - Inox 420c</h3>
+        <p class="detalhe">5,5 polegadas · 2mm · Inox 420c · Cabos variados em resina. Bainha em couro inclusa.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 89,00</span>
+        <button class="btn-escolher" onclick="abrirModal('chur-5-5pol')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('churrasco-5-5pol', 1)">&#8250;</button>
+    </div>
+  </div>
+
+  <div class="subcat-carousel" id="churrasco-9pol">
+    <p class="secao-subtitulo">Lâmina 9 polegadas · 3mm · Bainha em couro inclusa · R$ 127,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('churrasco-9pol', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-churrasco">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/WhatsApp Image 2026-05-06 at 10.05.46.jpeg')">
+        <span class="tag-qty">13 modelos</span>
+        <span class="tag-modelo">Times de Futebol</span>
+      </div>
+      <div class="card-body">
+        <h3>Churrasco 9" - Times</h3>
+        <p class="detalhe">Palmeiras, Fluminense, Santos, São Paulo, Athletico-PR, Grêmio. Cabo em resina na cor do time, escudo gravado na lâmina.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 127,00</span>
+        <button class="btn-escolher" onclick="abrirModal('chur-times')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/WhatsApp Image 2026-05-06 at 10.05.46 (1).jpeg')">
+        <span class="tag-qty">13 modelos</span>
+        <span class="tag-modelo">Temáticas</span>
+      </div>
+      <div class="card-body">
+        <h3>Churrasco 9" - Temáticas</h3>
+        <p class="detalhe">Correntes, Touro, Opala, Escavadeira, Sextou Amstel, Sextou Jack Daniels, Brasil, Entalhada, Sextou Antarctica, Rifle, Heineken e mais.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 127,00</span>
+        <button class="btn-escolher" onclick="abrirModal('chur-tematicas')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/WhatsApp Image 2026-05-06 at 10.05.45.jpeg')">
+        <span class="tag-qty">13 modelos</span>
+        <span class="tag-modelo">Temáticas — Lote 2</span>
+      </div>
+      <div class="card-body">
+        <h3>Churrasco 9" - Temáticas Lote 2</h3>
+        <p class="detalhe">Escavadeira, Gado, Moto, Mestre Churrasqueiro, Touro, Entalhada, Brasil, Fusca, Justiceiro, O Agro Não Para e mais.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 127,00</span>
+        <button class="btn-escolher" onclick="abrirModal('chur-tematicas-2')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('churrasco', 1)">&#8250;</button>
+    </div>
+  </div>
+
+  <div class="subcat-carousel ativo" id="churrasco-10pol">
+    <p class="secao-subtitulo">10 polegadas · 3mm · Aço Inox 420C · Cabo em resina · Bainha em couro inclusa · R$ 135,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('churrasco-10pol', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-churrasco-10pol">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/churrasco-10pol-1.jpeg')">
+        <span class="tag-qty">11 modelos</span>
+        <span class="tag-modelo">Lote 1</span>
+      </div>
+      <div class="card-body">
+        <h3>Churrasco 10pol. - Lote 1</h3>
+        <p class="detalhe">Pescaria, Nossa Senhora, Corona, Nossa Senhora Mod.2, Nossa Senhora Mod.3, Gado, Caçador, Mestre do Churrasco, Caçador Mod.2, Bruto Rústico É Sistemático, Brasil.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 135,00</span>
+        <button class="btn-escolher" onclick="abrirModal('chur-10pol-1')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/churrasco-10pol-2.jpeg')">
+        <span class="tag-qty">9 modelos</span>
+        <span class="tag-modelo">Lote 2</span>
+      </div>
+      <div class="card-body">
+        <h3>Churrasco 10pol. - Lote 2</h3>
+        <p class="detalhe">Agro É Top, Cabo Rosa, Corona, Sem Entalhe, Família, Trator, Vermelho, Azul, Lobo.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 135,00</span>
+        <button class="btn-escolher" onclick="abrirModal('chur-10pol-2')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/churrasco-10pol-3.jpeg')">
+        <span class="tag-qty">10 modelos</span>
+        <span class="tag-modelo">Lote 3</span>
+      </div>
+      <div class="card-body">
+        <h3>Churrasco 10pol. - Lote 3</h3>
+        <p class="detalhe">Avaí, Botafogo, Fluminense, São Paulo, Fluminense Mod.2, São Paulo Mod.2, Atlético Mineiro, Vasco, Santos, Santos Mod.2.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 135,00</span>
+        <button class="btn-escolher" onclick="abrirModal('chur-10pol-3')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/churrasco-10pol-4.jpeg')">
+        <span class="tag-qty">10 modelos</span>
+        <span class="tag-modelo">Lote 4</span>
+      </div>
+      <div class="card-body">
+        <h3>Churrasco 10pol. - Lote 4</h3>
+        <p class="detalhe">Justiceiro, Brasil, Milionário e José Rico, Caçador, Jack Daniels, Jesus, Volvo, Churrascoterapia, Pescaria, Avengers.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 135,00</span>
+        <button class="btn-escolher" onclick="abrirModal('chur-10pol-4')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/churrasco-10pol-5.jpeg')">
+        <span class="tag-qty">11 modelos</span>
+        <span class="tag-modelo">Lote 5</span>
+      </div>
+      <div class="card-body">
+        <h3>Churrasco 10pol. - Lote 5</h3>
+        <p class="detalhe">Jack Daniels, Bruto Rústico É Sistemático, Escorpião, Justiceiro, Gado, Cavalo, Volvo, Churrascoterapia, Peixe, Entalhada, Bolsonaro.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 135,00</span>
+        <button class="btn-escolher" onclick="abrirModal('chur-10pol-5')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/churrasco-10pol-6.jpeg')">
+        <span class="tag-qty">9 modelos</span>
+        <span class="tag-modelo">Lote 6</span>
+      </div>
+      <div class="card-body">
+        <h3>Churrasco 10pol. - Lote 6</h3>
+        <p class="detalhe">Cruzeiro, Corinthians, São Paulo, Internacional, São Paulo Mod.2, Atlético Mineiro, Botafogo, Figueirense, Botafogo Mod.2.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 135,00</span>
+        <button class="btn-escolher" onclick="abrirModal('chur-10pol-6')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/churrasco-10pol-7.jpeg')">
+        <span class="tag-qty">10 modelos</span>
+        <span class="tag-modelo">Lote 7</span>
+      </div>
+      <div class="card-body">
+        <h3>Churrasco 10pol. - Lote 7</h3>
+        <p class="detalhe">Heineken, Heineken Mod.2, Kombi, Mestre do Churrasco, Sextooou!, Rifle, Milionário e José Rico, Pistola, Chevette, Caçador.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 135,00</span>
+        <button class="btn-escolher" onclick="abrirModal('chur-10pol-7')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/churrasco-10pol-8.jpeg')">
+        <span class="tag-qty">13 modelos</span>
+        <span class="tag-modelo">Lote 8</span>
+      </div>
+      <div class="card-body">
+        <h3>Churrasco 10pol. - Lote 8</h3>
+        <p class="detalhe">Gado, Chevette, Cowboy, Heineken, Mestre do Churrasco, Águia, Justiceiro, Heineken Mod.2, Brasil, Brasil Mod.2, Corona, Jesus, Tenha Fé Mas Vá Armado.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 135,00</span>
+        <button class="btn-escolher" onclick="abrirModal('chur-10pol-8')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/churrasco-10pol-9.jpeg')">
+        <span class="tag-qty">10 modelos</span>
+        <span class="tag-modelo">Lote 9</span>
+      </div>
+      <div class="card-body">
+        <h3>Churrasco 10pol. - Lote 9</h3>
+        <p class="detalhe">Mod.1, Mod.2, Mod.3, Mod.4, Mod.5, Mod.6, Mod.7, Mod.8, Mod.9, Mod.10.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 135,00</span>
+        <button class="btn-escolher" onclick="abrirModal('chur-10pol-9')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/churrasco-10pol-10.jpeg')">
+        <span class="tag-qty">10 modelos</span>
+        <span class="tag-modelo">Lote 10</span>
+      </div>
+      <div class="card-body">
+        <h3>Churrasco 10pol. - Lote 10</h3>
+        <p class="detalhe">Santos, Vasco, São Paulo, Botafogo, Grêmio, Cruzeiro, São Paulo Mod.2, Vasco Mod.2, São Paulo Mod.3, Grêmio Mod.2.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 135,00</span>
+        <button class="btn-escolher" onclick="abrirModal('chur-10pol-10')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/churrasco-10pol-11.jpeg')">
+        <span class="tag-qty">13 modelos</span>
+        <span class="tag-modelo">Lote 11</span>
+      </div>
+      <div class="card-body">
+        <h3>Churrasco 10pol. - Lote 11</h3>
+        <p class="detalhe">Scania, Cavalo, Chevette, Entalhada, Arabesco, Entalhada Mod.2, Baralho, Rosas, Fuzil, Sextooou!, Cavalo Mod.2, Feliz Dia dos Pais, Eu Sou Filho do Mato.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 135,00</span>
+        <button class="btn-escolher" onclick="abrirModal('chur-10pol-11')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/churrasco-10pol-12.jpeg')">
+        <span class="tag-qty">12 modelos</span>
+        <span class="tag-modelo">Lote 12</span>
+      </div>
+      <div class="card-body">
+        <h3>Churrasco 10pol. - Lote 12</h3>
+        <p class="detalhe">Flamengo, Remo, Santos, Fluminense, Cruzeiro, Fluminense Mod.2, Palmeiras, Santos Mod.2, Botafogo, Engenharia Civil, Flamengo Mod.2, Flamengo Mod.3.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 135,00</span>
+        <button class="btn-escolher" onclick="abrirModal('chur-10pol-12')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/churrasco-10pol-13.jpeg')">
+        <span class="tag-qty">9 modelos</span>
+        <span class="tag-modelo">Lote 13</span>
+      </div>
+      <div class="card-body">
+        <h3>Churrasco 10pol. - Lote 13</h3>
+        <p class="detalhe">Scania, Jack Daniels, Cavalo, Poker, Sextooou!, Heineken, Kombi, Jack Daniels Mod.2, Corona.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 135,00</span>
+        <button class="btn-escolher" onclick="abrirModal('chur-10pol-13')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/churrasco-10pol-14.jpeg')">
+        <span class="tag-qty">13 modelos</span>
+        <span class="tag-modelo">Lote 14</span>
+      </div>
+      <div class="card-body">
+        <h3>Churrasco 10pol. - Lote 14</h3>
+        <p class="detalhe">Pescaria, Nossa Senhora, Corona, Entalhada, Entalhada Mod.2, Gado, Caçador, Mestre do Churrasco, Caçador Mod.2, Bruto Rústico É Sistemático, Brasil, Gado Mod.2, Bolsonaro.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 135,00</span>
+        <button class="btn-escolher" onclick="abrirModal('chur-10pol-14')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('churrasco-10pol', 1)">&#8250;</button>
+    </div>
+  </div>
+</section>
+
+<div class="separador"><hr/></div>
+
+<!-- ═══ MODELOS ESPECIAIS ═══ -->
+<section class="secao" id="especiais">
+  <div class="secao-titulo">
+    <span class="icone"><svg class="icon" width="20" height="20"><use href="#ic-award"/></svg></span>
+    <h2>Modelos Especiais</h2>
+    <div class="linha"></div>
+  </div>
+  <div class="subcats">
+    <button class="subcat-btn ativo" onclick="mostrarSubcat('especiais','campeira',this)">Campeira Carbono</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('especiais','cutelo',this)">Cutelo 9pol</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('especiais','fulltang',this)">Fulltang 8/9pol</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('especiais','fulltang-10',this)">Full Tang 10pol</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('especiais','gold',this)">Gold 9/10pol</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('especiais','adaga',this)">Adaga</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('especiais','bowie',this)">Bowie 10pol</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('especiais','ximango',this)">Ximango 12pol</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('especiais','lingua-ximango',this)">Língua de Ximango</button>
+  </div>
+  <div class="subcat-carousel" id="especiais-fulltang">
+    <p class="secao-subtitulo">8 e 9 polegadas · 3mm · Cabo em Imbuia · Bainha em couro inclusa · R$ 109,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('especiais', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-especiais">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/especiais-fulltang-8-9pol.jpeg')">
+        <span class="tag-qty">11 modelos</span>
+        <span class="tag-modelo">Fulltang — Cabo Imbuia</span>
+      </div>
+      <div class="card-body">
+        <h3>Fulltang 8/9pol. - Imbuia</h3>
+        <p class="detalhe">Cabo em Imbuia com pinos dourados. Modelos: Lisa, Serrilhada, Com Guarda Espiral e Com Furo. Bainha em couro inclusa.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 109,00</span>
+        <button class="btn-escolher" onclick="abrirModal('esp-fulltang')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('especiais', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel" id="especiais-gold">
+    <p class="secao-subtitulo">9 e 10 polegadas · 3mm · Aço Inox 420C · Lâmina dourada · Bainha em couro inclusa · R$ 285,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('especiais-gold', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-especiais-gold">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/especiais-gold-1.jpeg')">
+        <span class="tag-qty">8 modelos</span>
+        <span class="tag-modelo">Gold</span>
+      </div>
+      <div class="card-body">
+        <h3>Gold 9/10pol. - Lâmina Dourada</h3>
+        <p class="detalhe">Mod.1, Mod.2, Mod.3, Mod.4, Mod.5, Mod.6, Mod.7, Mod.8.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 285,00</span>
+        <button class="btn-escolher" onclick="abrirModal('esp-gold-1')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('especiais-gold', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel" id="especiais-bowie">
+    <p class="secao-subtitulo">10 polegadas · 5mm · Aço Carbono 1070 · Cabo em madeira · Bainha em couro inclusa · R$ 129,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('especiais-bowie', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-especiais-bowie">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/especiais-bowie-10pol-1.jpeg')">
+        <span class="tag-qty">Novidade</span>
+        <span class="tag-modelo">Bowie 10pol</span>
+      </div>
+      <div class="card-body">
+        <h3>Bowie 10pol. - Carbono 1070</h3>
+        <p class="detalhe">Aço carbono 1070 · 5mm · Lombada serrilhada · Cabo em madeira ergonômico · Bainha em couro inclusa. Faca bruta e resistente.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 129,00</span>
+        <button class="btn-escolher" onclick="abrirModal('esp-bowie')">Ver Produto</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('especiais-bowie', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel" id="especiais-ximango">
+    <p class="secao-subtitulo">12 polegadas · Aço Carbono 1070 · 3mm · Guarda em S · Bainha em couro inclusa · R$ 117,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('especiais-ximango', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-especiais-ximango">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/especiais-ximango-12pol-carbono-1.jpeg')">
+        <span class="tag-qty">10 unidades</span>
+        <span class="tag-modelo">Aço Carbono 1070</span>
+      </div>
+      <div class="card-body">
+        <h3>Ximango 12pol. - Carbono 1070</h3>
+        <p class="detalhe">Aço carbono 1070 · 3mm · Guarda em S · Cabo em madeira natural · Bainha em couro inclusa.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 117,00</span>
+        <button class="btn-escolher" onclick="abrirModal('esp-ximango-carbono')">Ver Produto</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('especiais-ximango', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel" id="especiais-lingua-ximango">
+    <p class="secao-subtitulo">Língua de Ximango 12pol · 3mm · Bainha em couro inclusa · Diversas opções de cabo</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('especiais-lingua-ximango', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-especiais-lingua-ximango">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/especiais-lingua-ximango-12pol-1.jpeg')">
+        <span class="tag-qty">7 modelos</span>
+        <span class="tag-modelo">Jacarandá Violeta</span>
+      </div>
+      <div class="card-body">
+        <h3>Língua de Ximango 12pol. - Jacarandá</h3>
+        <p class="detalhe">Inox 420c · Fulltang · 3mm · Cabo em Jacarandá Violeta com variação natural de tonalidade. Bainha em couro inclusa.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 140,00</span>
+        <button class="btn-escolher" onclick="abrirModal('esp-lingua-ximango')">Ver Produto</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/especiais-lingua-ximango-12pol-2.jpeg')">
+        <span class="tag-qty">4 cabos</span>
+        <span class="tag-modelo">Cabo Variado</span>
+      </div>
+      <div class="card-body">
+        <h3>Língua de Ximango 12pol. - Carbono</h3>
+        <p class="detalhe">12 polegadas · 3mm · Aço carbono · Cabos variados em marfim, chifre ou madeira. Bainha em couro inclusa.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 109,00</span>
+        <button class="btn-escolher" onclick="abrirModal('esp-lingua-ximango-carbono')">Escolher Cabo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('especiais-lingua-ximango', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel ativo" id="especiais-campeira">
+    <p class="secao-subtitulo">9 polegadas · 3mm · Aço Carbono · Cabo em osso · Bainha em couro inclusa · R$ 75,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('especiais-campeira', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-especiais-campeira">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/especiais-campeira-9pol-1.jpeg')">
+        <span class="tag-qty">12 modelos</span>
+        <span class="tag-modelo">Cabo em Osso</span>
+      </div>
+      <div class="card-body">
+        <h3>Campeira Carbono 9pol. - Cabo em Osso</h3>
+        <p class="detalhe">Moto, Nossa Senhora, Os Meninos da Pecuária Mod.1, Entalhada Mod.1, Touro Mod.1, Fuzil, Bruto Memo Mod.1, Os Meninos da Pecuária Mod.2, Touro Mod.2, Entalhada Mod.2, Grêmio, Bruto Memo Mod.2.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 75,00</span>
+        <button class="btn-escolher" onclick="abrirModal('esp-campeira-1')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/especiais-campeira-9pol-2.jpeg')">
+        <span class="tag-qty">11 modelos</span>
+        <span class="tag-modelo">Lote 2 — Cabo em Osso</span>
+      </div>
+      <div class="card-body">
+        <h3>Campeira Carbono 9pol. - Lote 2</h3>
+        <p class="detalhe">Entalhada, Cavalo Mod.1, Bruto Memo, Cavalo Mod.2, Sem Entalhe, Jesus, Justiceiro, Costela, Grêmio, Os Menino da Pecuária, Moto.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 75,00</span>
+        <button class="btn-escolher" onclick="abrirModal('esp-campeira-2')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/especiais-campeira-9pol-3.jpeg')">
+        <span class="tag-qty">12 modelos</span>
+        <span class="tag-modelo">Lote 3 — Cabo em Osso</span>
+      </div>
+      <div class="card-body">
+        <h3>Campeira Carbono 9pol. - Lote 3</h3>
+        <p class="detalhe">Mod.1, Mod.2, Mod.3, Mod.4, Mod.5, Mod.6, Mod.7, Mod.8, Mod.9, Mod.10, Mod.11, Mod.12.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 75,00</span>
+        <button class="btn-escolher" onclick="abrirModal('esp-campeira-3')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('especiais-campeira', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel" id="especiais-adaga">
+    <p class="secao-subtitulo">Adagas em Inox 420c · Bainha em couro inclusa</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('especiais-adaga', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-especiais-adaga">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/especiais-adaga-5pol-1.jpeg')">
+        <span class="tag-qty">5 modelos</span>
+        <span class="tag-modelo">Adaga 5pol</span>
+      </div>
+      <div class="card-body">
+        <h3>Adaga 5pol. - Inox 420c</h3>
+        <p class="detalhe">5 polegadas · 2mm · Inox 420c · Cabo em chifre. Modelos: Faixa Vermelha, Azul, Dourada, Rosa ou Topo Marfim.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 89,00</span>
+        <button class="btn-escolher" onclick="abrirModal('esp-adaga')">Escolher Cor</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/especiais-adaga-cervo-1.jpeg')">
+        <span class="tag-qty">Fio duplo</span>
+        <span class="tag-modelo">Cervo</span>
+      </div>
+      <div class="card-body">
+        <h3>Adaga Cervo - Inox 420c</h3>
+        <p class="detalhe">Fio duplo · 4mm · Inox 420c · Pomo redondo e gravação de cervo na lâmina · Cabo em resina marfim · Bainha em couro inclusa.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 199,00</span>
+        <button class="btn-escolher" onclick="abrirModal('esp-adaga-cervo')">Ver Produto</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('especiais-adaga', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel" id="especiais-fulltang-10">
+    <p class="secao-subtitulo">10 polegadas · 4mm · Aço Inox 420C · Cabo montado · Bainha em couro inclusa · R$ 179,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('especiais-fulltang-10', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-especiais-fulltang-10">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/especiais-fulltang-10pol-1.jpeg')">
+        <span class="tag-qty">10 modelos</span>
+        <span class="tag-modelo">Full Tang 10pol</span>
+      </div>
+      <div class="card-body">
+        <h3>Full Tang 10pol. - Cabo Montado</h3>
+        <p class="detalhe">Heineken, Heineken Mod.2, Mestre do Churrasco, Corona, Estampa Animal, Corona Mod.2, Gado, Pescaria, Trator, Dólar.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 179,00</span>
+        <button class="btn-escolher" onclick="abrirModal('esp-fulltang-10-1')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('especiais-fulltang-10', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel" id="especiais-cutelo">
+    <p class="secao-subtitulo">9 polegadas · 4mm · Inox polido · Cabo montado · Bainha em couro inclusa · R$ 185,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('especiais-cutelo', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-especiais-cutelo">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/especiais-cutelo-9pol-1.jpeg')">
+        <span class="tag-qty">6 modelos</span>
+        <span class="tag-modelo">Cutelo 9pol</span>
+      </div>
+      <div class="card-body">
+        <h3>Cutelo 9pol. - Cabo Montado</h3>
+        <p class="detalhe">São Paulo, Terço, Entalhada, Lobo, Flamengo, Super Pai.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 185,00</span>
+        <button class="btn-escolher" onclick="abrirModal('esp-cutelo-1')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/especiais-cutelo-9pol-2.jpeg')">
+        <span class="tag-qty">6 modelos</span>
+        <span class="tag-modelo">Cutelo 9pol — Lote 2</span>
+      </div>
+      <div class="card-body">
+        <h3>Cutelo 9pol. - Lote 2</h3>
+        <p class="detalhe">Grêmio Mod.1, Palmeiras, Grêmio Mod.2, Cruzeiro, Sextooou!, São Paulo.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 185,00</span>
+        <button class="btn-escolher" onclick="abrirModal('esp-cutelo-2')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/especiais-cutelo-9pol-3.jpeg')">
+        <span class="tag-qty">4 modelos</span>
+        <span class="tag-modelo">Cutelo 9pol — Lote 3</span>
+      </div>
+      <div class="card-body">
+        <h3>Cutelo 9pol. - Lote 3</h3>
+        <p class="detalhe">Palmeiras, Flamengo, São Paulo, Corinthians.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 185,00</span>
+        <button class="btn-escolher" onclick="abrirModal('esp-cutelo-3')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/especiais-cutelo-9pol-4.jpeg')">
+        <span class="tag-qty">9 modelos</span>
+        <span class="tag-modelo">Cutelo 9pol — Lote 4</span>
+      </div>
+      <div class="card-body">
+        <h3>Cutelo 9pol. - Lote 4</h3>
+        <p class="detalhe">Heineken, Pistola, Super Pai, Lobo, Pescaria, Revólver Mod.1, América, Bruto Rústico É Sistemático, Revólver Mod.2.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 185,00</span>
+        <button class="btn-escolher" onclick="abrirModal('esp-cutelo-4')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('especiais-cutelo', 1)">&#8250;</button>
+    </div>
+  </div>
+</section>
+
+<div class="separador"><hr/></div>
+
+<!-- ═══ KITS & CONJUNTOS ═══ -->
+<section class="secao" id="kits">
+  <div class="secao-titulo">
+    <span class="icone"><svg class="icon" width="20" height="20"><use href="#ic-hammer"/></svg></span>
+    <h2>Kits &amp; Conjuntos</h2>
+    <div class="linha"></div>
+  </div>
+  <div class="subcats">
+    <button class="subcat-btn ativo" onclick="mostrarSubcat('kits','duplo',this)">Kit Duplo</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('kits','petisqueira',this)">Petisqueira + Expositor</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('kits','espeto',this)">Kit Espeto 5 peças</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('kits','importado',this)">Kit Churrasco Importado</button>
+  </div>
+  <div class="subcat-carousel" id="kits-petisqueira">
+    <p class="secao-subtitulo">Tábua de madeira com expositor · Sem a faca · R$ 109,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('kits-petisqueira', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-kits-petisqueira">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/kits-petisqueira-expositor-1.jpeg')">
+        <span class="tag-qty">2 modelos</span>
+        <span class="tag-modelo">Petisqueira + Expositor</span>
+      </div>
+      <div class="card-body">
+        <h3>Petisqueira + Expositor</h3>
+        <p class="detalhe">Tábua de madeira com expositor para faca. Sem a faca. Modelos: Tridente, Garra de Urso.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 109,00</span>
+        <button class="btn-escolher" onclick="abrirModal('kits-petisqueira-produto')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/kits-petisqueira-rustico-1.jpeg')">
+        <span class="tag-qty">2 modelos</span>
+        <span class="tag-modelo">Base Rústica</span>
+      </div>
+      <div class="card-body">
+        <h3>Kit Petisqueira Rústico</h3>
+        <p class="detalhe">Base em tronco rústico com garfos para petisco. Modelos: Tridente, Garra de Urso.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 99,99</span>
+        <button class="btn-escolher" onclick="abrirModal('kits-petisqueira-rustico')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('kits-petisqueira', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel" id="kits-espeto">
+    <p class="secao-subtitulo">5 espetos em inox · Estojo em tecido com alça · Personalização opcional · R$ 169,00</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('kits-espeto', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-kits-espeto">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/kits-espeto-5pecas-1.jpeg')">
+        <span class="tag-qty">5 peças</span>
+        <span class="tag-modelo">Kit Espeto</span>
+      </div>
+      <div class="card-body">
+        <h3>Kit Espeto 5 peças - Inox</h3>
+        <p class="detalhe">5 espetos em inox com cabo · Estojo em tecido com alça. Disponível em azul ou preto. Personalização com logo bordada/gravada disponível sob consulta.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 169,00</span>
+        <button class="btn-escolher" onclick="abrirModal('kits-espeto-5')">Escolher Estojo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('kits-espeto', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel ativo" id="kits-duplo">
+    <p class="secao-subtitulo">Faca + Garfo · 10 polegadas · 3mm · Estojo em couro · Cabo montado · R$ 255,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('kits-duplo', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-kits-duplo">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/kits-duplo-brasil-1.jpeg')">
+        <span class="tag-qty">16 modelos</span>
+        <span class="tag-modelo">Faca + Garfo</span>
+      </div>
+      <div class="card-body">
+        <h3>Kit Duplo Faca + Garfo 10pol.</h3>
+        <p class="detalhe">Brasil, Gado, Corinthians, Grêmio Mod.1, Grêmio Mod.2, Santos, São Paulo, Cruzeiro, Internacional, Correntes, Brasil Liso, Águia, Sem Entalhe, Brasil Gold, Heineken, Brasil Sem Entalhe.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 255,00</span>
+        <button class="btn-escolher" onclick="abrirModal('kits-duplo')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('kits-duplo', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel" id="kits-importado">
+    <p class="secao-subtitulo">Faca + Garfo · Cabo em madeira · Estojo em nylon com zíper · R$ 49,00</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('kits-importado', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-kits-importado">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/kits-churrasco-importado-1.jpeg')">
+        <span class="tag-qty">Kit completo</span>
+        <span class="tag-modelo">Importado</span>
+      </div>
+      <div class="card-body">
+        <h3>Kit Churrasco Importado</h3>
+        <p class="detalhe">Faca de churrasco + garfo · Cabo em madeira · Acompanha estojo em nylon com zíper.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 49,00</span>
+        <button class="btn-escolher" onclick="abrirModal('kits-churrasco-imp')">Ver Produto</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('kits-importado', 1)">&#8250;</button>
+    </div>
+  </div>
+</section>
+
+<div class="separador"><hr/></div>
+
+<!-- ═══ BRINDES PERSONALIZADOS ═══ -->
+<section class="secao" id="brindes">
+  <div class="secao-titulo">
+    <span class="icone"><svg class="icon" width="20" height="20"><use href="#ic-award"/></svg></span>
+    <h2>Brindes Personalizados</h2>
+    <div class="linha"></div>
+  </div>
+  <p class="secao-subtitulo">Itens personalizados a laser com logo, nome ou arte · Pedido mínimo 10 peças iguais por item</p>
+  <div class="grid">
+
+  <div class="card">
+    <div class="card-foto" style="background-image: url('fotos/brindes-tabua-faca-chaveiro-1.jpeg')">
+      <span class="tag-qty">3 itens</span>
+      <span class="tag-modelo">Kit Personalizado</span>
+    </div>
+    <div class="card-body">
+      <h3>Kit Brindes Personalizados</h3>
+      <p class="detalhe">Faca 8pol · Tábua Teca · Chaveiro Fuzil. Escolha um ou mais itens. Personalização a laser inclusa.</p>
+    </div>
+    <div class="card-footer">
+      <span class="preco">A partir de R$ 15,00</span>
+      <button class="btn-escolher" onclick="abrirModal('brindes-kit')">Escolher Itens</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-foto" style="background-image: url('fotos/picanheiras-brinde-personalizado-1.jpeg')">
+      <span class="tag-qty">Mín. 10 peças</span>
+      <span class="tag-modelo">Picanheira Personalizada</span>
+    </div>
+    <div class="card-body">
+      <h3>Picanheira 10pol. - Personalizada</h3>
+      <p class="detalhe">Inox 420c · 3mm · Cabo resinado · Logo ou arte gravados na lâmina. Pedido mínimo 10 peças iguais.</p>
+    </div>
+    <div class="card-footer">
+      <span class="preco">R$ 145,00 / un.</span>
+      <button class="btn-escolher" onclick="abrirModal('brindes-picanheira')">Ver Produto</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-foto" style="background-image: url('fotos/brindes-tabua-faca-brutforg-1.jpeg')">
+      <span class="tag-qty">Mín. 10 peças</span>
+      <span class="tag-modelo">Kit Brut Forg</span>
+    </div>
+    <div class="card-body">
+      <h3>Kit Brut Forg + Tábua - Personalizado</h3>
+      <p class="detalhe">Faca 8pol Brut Forg · Tábua Teca 24x44cm. Escolha um ou mais itens. Personalização a laser inclusa.</p>
+    </div>
+    <div class="card-footer">
+      <span class="preco">A partir de R$ 80,00</span>
+      <button class="btn-escolher" onclick="abrirModal('brindes-kit-brutforg')">Escolher Itens</button>
+    </div>
+  </div>
+
+  </div>
+  <button class="carousel-btn" onclick="moverCarousel('brindes', 1)">&#8250;</button>
+  </div>
+</section>
+
+<div class="separador"><hr/></div>
+
+<!-- ═══ IMPORTADOS ═══ -->
+<section class="secao" id="importados">
+  <div class="secao-titulo">
+    <span class="icone"><svg class="icon" width="20" height="20"><use href="#ic-knife"/></svg></span>
+    <h2>Importados</h2>
+    <div class="linha"></div>
+  </div>
+  <div class="subcats">
+    <button class="subcat-btn ativo" onclick="mostrarSubcat('importados','cutelos',this)">Cutelos</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('importados','mini-faca',this)">Mini Faca</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('importados','coreadeira',this)">Coreadeira</button>
+  </div>
+  <div class="subcat-carousel ativo" id="importados-cutelos">
+    <p class="secao-subtitulo">7 polegadas · Importado · Cabo em madeira · Bainha em couro inclusa · R$ 89,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('importados-cutelos', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-importados-cutelos">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/importados-cutelos-7pol-1.jpeg')">
+        <span class="tag-qty">3 modelos</span>
+        <span class="tag-modelo">Cutelo Importado</span>
+      </div>
+      <div class="card-body">
+        <h3>Cutelo Importado 7pol.</h3>
+        <p class="detalhe">7 polegadas · Cabo em madeira · Bainha em couro inclusa. Modelos: Marteleado, Polido, Gravado.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 89,00</span>
+        <button class="btn-escolher" onclick="abrirModal('imp-cutelo')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/importados-cutelos-7pol-2.jpeg')">
+        <span class="tag-qty">3 modelos</span>
+        <span class="tag-modelo">Cutelo Importado</span>
+      </div>
+      <div class="card-body">
+        <h3>Cutelo Importado 7pol. - Lote 2</h3>
+        <p class="detalhe">7 polegadas · Cabo madeira c/ guarda · Bainha em couro inclusa. Modelos: Brut Forg, Marteleado, Damasco Linear.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 89,00</span>
+        <button class="btn-escolher" onclick="abrirModal('imp-cutelo-2')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/importados-cutelos-damasco-caixa-1.jpeg')">
+        <span class="tag-qty">Com caixa</span>
+        <span class="tag-modelo">Damasco</span>
+      </div>
+      <div class="card-body">
+        <h3>Cutelo Damasco - Com Caixa</h3>
+        <p class="detalhe">Lâmina damasco · Cabo em madeira · Acompanha caixa presente.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 99,00</span>
+        <button class="btn-escolher" onclick="abrirModal('imp-cutelo-damasco')">Ver Produto</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('importados-cutelos', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel" id="importados-coreadeira">
+    <p class="secao-subtitulo">Faca corta couro · Importada · Bainha em couro inclusa · R$ 59,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('importados-coreadeira', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-importados-coreadeira">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/importados-coreadeira-1.jpeg')">
+        <span class="tag-qty">6 modelos</span>
+        <span class="tag-modelo">Coreadeira</span>
+      </div>
+      <div class="card-body">
+        <h3>Coreadeira Importada</h3>
+        <p class="detalhe">Cabo em madeira escura · Argola no cabo · Lâmina inox polida · Bainha em couro inclusa.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 59,00</span>
+        <button class="btn-escolher" onclick="abrirModal('imp-coreadeira')">Ver Produto</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/importados-coreadeira-4pol-1.jpeg')">
+        <span class="tag-qty">6 modelos</span>
+        <span class="tag-modelo">4 Polegadas</span>
+      </div>
+      <div class="card-body">
+        <h3>Coreadeira Importada 4pol.</h3>
+        <p class="detalhe">Cabo em madeira natural · Guarda em inox · Lâmina polida · Bainha em couro inclusa.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 49,00</span>
+        <button class="btn-escolher" onclick="abrirModal('imp-coreadeira-4pol')">Ver Produto</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('importados-coreadeira', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel" id="importados-mini-faca">
+    <p class="secao-subtitulo">3 polegadas · Importada · Lâmina Brut Forg · Bainha em couro inclusa · R$ 39,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('importados-mini-faca', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-importados-mini-faca">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/importados-mini-faca-3pol-1.jpeg')">
+        <span class="tag-qty">2 modelos</span>
+        <span class="tag-modelo">Mini Faca</span>
+      </div>
+      <div class="card-body">
+        <h3>Mini Faca Importada 3pol.</h3>
+        <p class="detalhe">Lâmina Brut Forg · Cabo em madeira clara ou escura · Bainha em couro inclusa.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 39,00</span>
+        <button class="btn-escolher" onclick="abrirModal('imp-mini-faca')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('importados-mini-faca', 1)">&#8250;</button>
+    </div>
+  </div>
+</section>
+
+<div class="separador"><hr/></div>
+
+<!-- ═══ ACESSÓRIOS ═══ -->
+<section class="secao" id="acessorios">
+  <div class="secao-titulo">
+    <span class="icone"><svg class="icon" width="20" height="20"><use href="#ic-wrench"/></svg></span>
+    <h2>Acessórios</h2>
+    <div class="linha"></div>
+  </div>
+  <div class="subcats">
+    <button class="subcat-btn ativo" onclick="mostrarSubcat('acessorios','tabuas',this)">Tábuas</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('acessorios','isqueiro',this)">Isqueiro Temático</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('acessorios','chairas',this)">Chairas</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('acessorios','garfos',this)">Garfos</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('acessorios','mini-chaveiro',this)">Mini Faca Chaveiro</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('acessorios','expositor',this)">Expositor</button>
+    <button class="subcat-btn" onclick="mostrarSubcat('acessorios','caixinha',this)">Caixinha</button>
+  </div>
+  <div class="subcat-carousel" id="acessorios-garfos">
+    <p class="secao-subtitulo">10 polegadas · Inox · Bainha em couro inclusa · R$ 49,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('acessorios-garfos', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-acessorios-garfos">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/acessorios-garfos-10pol-1.jpeg')">
+        <span class="tag-qty">2 modelos</span>
+        <span class="tag-modelo">Cabo de Osso · Zamac</span>
+      </div>
+      <div class="card-body">
+        <h3>Garfo 10pol. - Inox</h3>
+        <p class="detalhe">Inox · 10 polegadas · Disponível com cabo de osso (marfim) ou cabo em Zamac (dourado decorativo).</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 49,00</span>
+        <button class="btn-escolher" onclick="abrirModal('acess-garfos')">Escolher Modelo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('acessorios-garfos', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel ativo" id="acessorios-tabuas">
+    <p class="secao-subtitulo">Madeira teca · Acabamento em resina · Diversos tamanhos e estampas</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('acessorios-tabuas', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-acessorios-tabuas">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/acessorios-tabuas-teca-1.jpeg')">
+        <span class="tag-qty">4 cores</span>
+        <span class="tag-modelo">Borda Colorida</span>
+      </div>
+      <div class="card-body">
+        <h3>Tábua Teca 24x44cm</h3>
+        <p class="detalhe">24x44x2,5cm · Borda em plástico colorido. Cores: Preta, Verde, Vermelha, Branca.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 75,00</span>
+        <button class="btn-escolher" onclick="abrirModal('acess-tabua-teca')">Escolher Cor</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/acessorios-tabuas-teca-tematicas-1.jpeg')">
+        <span class="tag-qty">4 temas</span>
+        <span class="tag-modelo">Pesca & Animais</span>
+      </div>
+      <div class="card-body">
+        <h3>Tábua Teca Temática 30x50cm</h3>
+        <p class="detalhe">30x50x2,5cm · Estampa em medalhão. Temas: Pescador, Tucunaré, Robalo, Cavalo.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 99,00</span>
+        <button class="btn-escolher" onclick="abrirModal('acess-tabua-tematica')">Escolher Tema</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/acessorios-tabuas-teca-logos-1.jpeg')">
+        <span class="tag-qty">9 temas</span>
+        <span class="tag-modelo">Logos & Símbolos</span>
+      </div>
+      <div class="card-body">
+        <h3>Tábua Teca Temática - Logos</h3>
+        <p class="detalhe">Estampa em medalhão. Temas: N. S. Aparecida, Heineken, Jack Daniel's, Boi, Caveira, Mestre do Churrasco, Bandeira do Brasil, Pescador, Tucunaré.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 99,00</span>
+        <button class="btn-escolher" onclick="abrirModal('acess-tabua-tematica-2')">Escolher Tema</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/acessorios-tabuas-teca-times-1.jpeg')">
+        <span class="tag-qty">12 times</span>
+        <span class="tag-modelo">Times de Futebol</span>
+      </div>
+      <div class="card-body">
+        <h3>Tábua Teca Temática - Times</h3>
+        <p class="detalhe">Estampa em medalhão. Escudos de times: Remo, Paysandu, Atlético-MG, São Paulo, Grêmio, Flamengo, Corinthians, Vasco, Internacional, Palmeiras, Santos, Cruzeiro.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 99,00</span>
+        <button class="btn-escolher" onclick="abrirModal('acess-tabua-times')">Escolher Time</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('acessorios-tabuas', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel" id="acessorios-chairas">
+    <p class="secao-subtitulo">Chaira para afiação · 3 modelos de cabo · R$ 89,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('acessorios-chairas', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-acessorios-chairas">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/acessorios-chairas-1.jpeg')">
+        <span class="tag-qty">3 modelos</span>
+        <span class="tag-modelo">Chaira</span>
+      </div>
+      <div class="card-body">
+        <h3>Chaira para Afiação</h3>
+        <p class="detalhe">Haste em aço para afiação de facas. Cabos: Preto, Osso, Dourado Ornamental.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 89,00</span>
+        <button class="btn-escolher" onclick="abrirModal('acess-chaira')">Escolher Cabo</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('acessorios-chairas', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel" id="acessorios-expositor">
+    <p class="secao-subtitulo">Expositor em MDF · Capacidade para 7 facas · R$ 50,00</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('acessorios-expositor', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-acessorios-expositor">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/acessorios-expositor-7facas-1.jpeg')">
+        <span class="tag-qty">7 facas</span>
+        <span class="tag-modelo">Expositor MDF</span>
+      </div>
+      <div class="card-body">
+        <h3>Expositor para 7 Facas</h3>
+        <p class="detalhe">Suporte em MDF · Capacidade para 7 facas · Sem as facas.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 50,00</span>
+        <button class="btn-escolher" onclick="abrirModal('acess-expositor-7')">Ver Produto</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('acessorios-expositor', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel" id="acessorios-isqueiro">
+    <p class="secao-subtitulo">Estilo Zippo · Gravação em relevo · R$ 34,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('acessorios-isqueiro', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-acessorios-isqueiro">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/acessorios-isqueiros-tematicos-1.jpeg')">
+        <span class="tag-qty">6 temas</span>
+        <span class="tag-modelo">Isqueiro Temático</span>
+      </div>
+      <div class="card-body">
+        <h3>Isqueiro Temático</h3>
+        <p class="detalhe">Lure Fishing, Gun Battle, Motocicleta, Militar, American Legends, Folha Cannabis.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 34,00</span>
+        <button class="btn-escolher" onclick="abrirModal('acess-isqueiro')">Escolher Tema</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('acessorios-isqueiro', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel" id="acessorios-mini-chaveiro">
+    <p class="secao-subtitulo">Mini faca decorativa · Com corrente e bainha em couro · R$ 25,00 cada</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('acessorios-mini-chaveiro', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-acessorios-mini-chaveiro">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/acessorios-mini-chaveiro-1.jpeg')">
+        <span class="tag-qty">2 cores</span>
+        <span class="tag-modelo">Mini Chaveiro</span>
+      </div>
+      <div class="card-body">
+        <h3>Mini Faca Chaveiro</h3>
+        <p class="detalhe">Lâmina gravada · Guarda em latão · Corrente e bainha em couro inclusa. Cabo Verde ou Preto.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 25,00</span>
+        <button class="btn-escolher" onclick="abrirModal('acess-mini-chaveiro')">Escolher Cor</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('acessorios-mini-chaveiro', 1)">&#8250;</button>
+    </div>
+  </div>
+  <div class="subcat-carousel" id="acessorios-caixinha">
+    <p class="secao-subtitulo">Caixinha presente preta · Logo gravada inclusa (brinde) · R$ 14,00</p>
+    <div class="carousel-wrapper">
+    <button class="carousel-btn" onclick="moverCarousel('acessorios-caixinha', -1)">&#8249;</button>
+    <div class="carousel" id="carousel-acessorios-caixinha">
+
+    <div class="card">
+      <div class="card-foto" style="background-image: url('fotos/acessorios-caixinha-1.jpeg')">
+        <span class="tag-qty">Com logo</span>
+        <span class="tag-modelo">Caixinha</span>
+      </div>
+      <div class="card-body">
+        <h3>Caixinha Presente</h3>
+        <p class="detalhe">Caixinha preta para presente · Gravação de logo/arte inclusa como brinde.</p>
+      </div>
+      <div class="card-footer">
+        <span class="preco">R$ 14,00</span>
+        <button class="btn-escolher" onclick="abrirModal('acess-caixinha')">Ver Produto</button>
+      </div>
+    </div>
+
+    </div>
+    <button class="carousel-btn" onclick="moverCarousel('acessorios-caixinha', 1)">&#8250;</button>
+    </div>
+  </div>
+</section>
+
+
+<section class="secao" id="catalogo">
+  <div class="secao-titulo">
+    <span class="icone"><svg class="icon" width="20" height="20"><use href="#ic-knife"/></svg></span>
+    <h2>Catálogo Completo</h2>
+    <div class="linha"></div>
+  </div>
+  <div id="catalogo-grid" class="catalogo-grid"></div>
+</section>
+
+<!-- ═══ MODAL SELETOR DE MODELO ═══ -->
+<div id="modal-overlay" onclick="fecharModalFora(event)">
+  <div class="modal-box">
+    <div class="modal-esquerda">
+      <div class="modal-foto" id="modal-foto" onclick="abrirLightbox()">
+        <span class="modal-foto-hint"><svg class="icon" width="13" height="13"><use href="#ic-zoom"/></svg><span class="hint-texto">Ampliar</span></span>
+        <svg id="modal-highlight" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible;"></svg>
+      </div>
+      <div id="modal-thumbs"></div>
+    </div>
+    <div class="modal-direita">
+      <div class="modal-topo">
+        <h3 id="modal-titulo">Escolha o modelo</h3>
+        <button class="btn-fechar-modal" onclick="fecharModal()"><svg class="icon" width="14" height="14"><use href="#ic-x"/></svg></button>
+      </div>
+      <p class="modal-subtitulo" id="modal-subtitulo"></p>
+      <div id="modal-chips"></div>
+      <div class="modal-rodape">
+        <div class="modal-qty">
+          <span class="label">Qtd.</span>
+          <button onclick="modalQtd(-1)">&#8722;</button>
+          <span class="num" id="modal-num">1</span>
+          <button onclick="modalQtd(+1)">+</button>
+        </div>
+        <div class="modal-total">
+          <span class="t-label">Total</span>
+          <span class="t-valor" id="modal-total">R$ 125,00</span>
+        </div>
+      </div>
+      <button class="btn-confirmar" onclick="confirmarModal()">+ Adicionar ao Carrinho</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── LIGHTBOX ── -->
+<div id="lightbox" onclick="fecharLightbox()">
+  <button id="lightbox-fechar" onclick="fecharLightbox()"><svg class="icon" width="16" height="16"><use href="#ic-x"/></svg></button>
+  <img id="lightbox-img" src="" alt="Foto do produto" />
+</div>
+
+<footer>
+  <div class="linha-ouro"></div>
+  <br/>
+  <div class="contatos">
+    <div class="contato-item">
+      <span class="label">WhatsApp</span>
+      <a href="https://wa.me/555192189863" class="valor">(51) 9218-9863</a>
+    </div>
+  </div>
+  <div class="linha-ouro"></div>
+  <p class="direitos">© 2026 Facas Artesanais &bull; Todos os direitos reservados</p>
+</footer>
+
+
+<script>
+  /* ─── SUB-CATEGORIAS ─── */
+  function mostrarSubcat(secaoId, subcatId, btn) {
+    var secao = document.getElementById(secaoId);
+    var carousels = secao.querySelectorAll('.subcat-carousel');
+    var pills = secao.querySelectorAll('.subcat-btn');
+    for (var i = 0; i < carousels.length; i++) carousels[i].classList.remove('ativo');
+    for (var i = 0; i < pills.length; i++) pills[i].classList.remove('ativo');
+    document.getElementById(secaoId + '-' + subcatId).classList.add('ativo');
+    btn.classList.add('ativo');
+  }
+
+  /* ─── CARROSSEL ─── */
+  function moverCarousel(id, dir) {
+    var c = document.getElementById('carousel-' + id);
+    var cardW = 280;
+    var visiveis = Math.max(1, Math.floor(c.clientWidth / cardW));
+    c.scrollBy({ left: dir * visiveis * cardW, behavior: 'smooth' });
+    setTimeout(function() { atualizarDots(id); }, 320);
+  }
+
+
+  /* ─── FOTO DO CARD CLICÁVEL ─── */
+  document.querySelectorAll('.card-foto').forEach(function(foto) {
+    foto.addEventListener('click', function() {
+      var btnEscolher = foto.closest('.card').querySelector('.btn-escolher');
+      var btnAdd = foto.closest('.card').querySelector('.btn-add');
+      if (btnEscolher) {
+        btnEscolher.click();
+      } else if (btnAdd) {
+        btnAdd.click();
+      } else {
+        var src = foto.style.backgroundImage.replace(/url\(['"]?([^'"]+)['"]?\)/, '$1');
+        if (src) {
+          document.getElementById('lightbox-img').src = src;
+          document.getElementById('lightbox').classList.add('ativo');
+        }
+      }
+    });
+  });
+
+  /* ─── CONFIGURAÇÃO ─── */
+  var WHATSAPP = '555192189863';
+
+  /* ─── COLEÇÕES E MODELOS ─── */
+  var COLECOES = {
+    'pic-6pol': {
+      nome: 'Picanheira 6pol. - Carbono',
+      subtitulo: '6 polegadas · Aço carbono · Cabo em madeira natural · Bainha em couro inclusa',
+      foto: 'fotos/picanheiras-6pol-1.jpeg',
+      preco: 82,
+      modelos: []
+    },
+    'pic-cabo-montado': {
+      nome: 'Picanheira 10pol. - Cabo Montado',
+      subtitulo: '10 polegadas · 4mm · Inox polido · Cabo montado em camadas de madeira/resina · Bainha em couro inclusa',
+      foto: 'fotos/picanheiras-cabo-montado-10pol-1.jpeg',
+      preco: 165,
+      modelos: [
+        'Agro É Top', 'Boi', 'Pescador', 'Mestre do Churrasco',
+        'Chamas / Tribal', 'Lisa'
+      ]
+    },
+    'pic-premium-lote2-1': {
+      nome: 'Picanheira Premium 10pol. - Lote 2',
+      subtitulo: '10 polegadas · 4mm · Aço Inox 420C · Cabo em resina · Bainha em couro inclusa',
+      foto: 'fotos/picanheiras-premium-lote2-1.jpeg',
+      preco: 175,
+      modelos: [
+        'Entalhada', 'Entalhada Mod.2', 'Brasil', 'Gado', 'Rogai Por Nós',
+        'Heineken', 'Arabesco Mod.1', 'Arabesco Mod.2', 'Heineken Mod.2',
+        'Heineken Mod.3', 'Brasil Mod.2', 'Maçonaria', 'Brasil Mod.3'
+      ]
+    },
+    'pic-premium-times-1': {
+      nome: 'Picanheira Premium 10pol. - Times',
+      subtitulo: '10 polegadas · 4mm · Aço Inox 420C · Cabo em resina · Bainha em couro inclusa',
+      foto: 'fotos/picanheiras-premium-times-1.jpeg',
+      preco: 175,
+      modelos: [
+        'São Paulo', 'São Paulo Mod.2', 'Corinthians', 'Corinthians Mod.2', 'São Paulo Mod.3', 'São Paulo Mod.4'
+      ]
+    },
+    'pic-premium-hotwheels-1': {
+      nome: 'Picanheira Premium 10pol. - Hot Wheels',
+      subtitulo: '10 polegadas · 4mm · Aço Inox 420C · Hot Wheels no cabo · Bainha em couro inclusa',
+      foto: 'fotos/picanheiras-premium-hotwheels-1.jpeg',
+      preco: 209,
+      modelos: [
+        'Preto', 'Amarelo Mod.1', 'Azul', 'Verde', 'Rosa',
+        'Amarelo Mod.2', 'Verde Escuro', 'Azul Marinho', 'Branco'
+      ]
+    },
+    'pic-cabo-montado-2': {
+      nome: 'Picanheira 10pol. - Cabo Montado Lote 2',
+      subtitulo: '10 polegadas · 3mm · Inox polido · Cabo montado · Bainha em couro inclusa',
+      foto: 'fotos/picanheiras-cabo-montado-10pol-2.jpeg',
+      preco: 142,
+      modelos: [
+        'Heineken', 'Só Toca Modão', 'Maçonaria', 'Opala', 'Justiceiro',
+        'Revólver', 'Gado Mod.1', 'Gado Mod.2', 'Pai Um Amigo Para Sempre', 'Nossa Senhora', 'Baralho'
+      ]
+    },
+    'pic-cabo-montado-3': {
+      nome: 'Picanheira 10pol. - Cabo Montado Lote 3',
+      subtitulo: '10 polegadas · 3mm · Inox polido · Cabo montado · Bainha em couro inclusa',
+      foto: 'fotos/picanheiras-cabo-montado-10pol-3.jpeg',
+      preco: 142,
+      modelos: [
+        'Opala', 'Sem Entalhe Mod.1', 'Já Pode ou Tá Cedo?', 'Sem Entalhe Mod.2',
+        'Pátria Amada Brasil', 'Camionete', 'Cavalo', 'Escavadeira',
+        'Pai Um Amigo Para Sempre', 'Correntes', 'Peixe'
+      ]
+    },
+    'pic-cabo-montado-4': {
+      nome: 'Picanheira 10pol. - Cabo Montado Lote 4',
+      subtitulo: '10 polegadas · 3mm · Inox polido · Cabo montado · Bainha em couro inclusa',
+      foto: 'fotos/picanheiras-cabo-montado-10pol-4.jpeg',
+      preco: 142,
+      modelos: [
+        'Heineken', 'Super Pai', 'Justiceiro', 'Mestre do Churrasco',
+        'Punisher', 'Sextou', 'Entalhada', 'Sem Entalhe Mod.1', 'Sem Entalhe Mod.2'
+      ]
+    },
+    'pic-tematicas': {
+      nome: 'Picanheira 8pol.',
+      subtitulo: '8 polegadas · 3mm · Bainha em couro inclusa',
+      foto: 'fotos/picanheiras-tematicas.jpg',
+      preco: 125,
+      modelos: [
+        'Sem Entalhe', 'Sextou!!!', 'Pescaria', 'Patrão', 'Revólver',
+        'O Agro Não Para!', 'Entalhada - Modelo 1',
+        'Churrascada', 'Entalhada - Modelo 2',
+        'Mestre do Churrasco'
+      ]
+    },
+    'pic-times': {
+      nome: 'Picanheira 8pol.',
+      subtitulo: 'Cabo em resina na cor do time · Escudo gravado na lâmina',
+      foto: 'fotos/picanheiras-times.jpg',
+      preco: 125,
+      modelos: [
+        'São Paulo - Modelo 1', 'São Paulo - Modelo 2',
+        'Flamengo - Modelo 1', 'Santos - Modelo 1',
+        'Vasco', 'Santos - Modelo 2',
+        'Flamengo - Modelo 2', 'Atlético Mineiro',
+        'Botafogo', 'Grêmio'
+      ]
+    },
+    'chur-10pol-14': {
+      nome: 'Churrasco 10pol. - Lote 14',
+      subtitulo: '10 polegadas · 3mm · Aço Inox 420C · Cabo em resina · Bainha em couro inclusa',
+      foto: 'fotos/churrasco-10pol-14.jpeg',
+      preco: 135,
+      modelos: [
+        'Pescaria', 'Nossa Senhora', 'Corona', 'Entalhada', 'Entalhada Mod.2',
+        'Gado', 'Caçador', 'Mestre do Churrasco', 'Caçador Mod.2',
+        'Bruto Rústico É Sistemático', 'Brasil', 'Gado Mod.2', 'Bolsonaro'
+      ]
+    },
+    'chur-10pol-13': {
+      nome: 'Churrasco 10pol. - Lote 13',
+      subtitulo: '10 polegadas · 3mm · Aço Inox 420C · Cabo em resina · Bainha em couro inclusa',
+      foto: 'fotos/churrasco-10pol-13.jpeg',
+      preco: 135,
+      modelos: ['Scania', 'Jack Daniels', 'Cavalo', 'Poker', 'Sextooou!', 'Heineken', 'Kombi', 'Jack Daniels Mod.2', 'Corona']
+    },
+    'chur-10pol-12': {
+      nome: 'Churrasco 10pol. - Lote 12',
+      subtitulo: '10 polegadas · 3mm · Aço Inox 420C · Cabo em resina · Bainha em couro inclusa',
+      foto: 'fotos/churrasco-10pol-12.jpeg',
+      preco: 135,
+      modelos: [
+        'Flamengo', 'Remo', 'Santos', 'Fluminense', 'Cruzeiro', 'Fluminense Mod.2',
+        'Palmeiras', 'Santos Mod.2', 'Botafogo', 'Engenharia Civil', 'Flamengo Mod.2', 'Flamengo Mod.3'
+      ]
+    },
+    'chur-10pol-11': {
+      nome: 'Churrasco 10pol. - Lote 11',
+      subtitulo: '10 polegadas · 3mm · Aço Inox 420C · Cabo em resina · Bainha em couro inclusa',
+      foto: 'fotos/churrasco-10pol-11.jpeg',
+      preco: 135,
+      modelos: [
+        'Scania', 'Cavalo', 'Chevette', 'Entalhada', 'Arabesco', 'Entalhada Mod.2',
+        'Baralho', 'Rosas', 'Fuzil', 'Sextooou!', 'Cavalo Mod.2', 'Feliz Dia dos Pais', 'Eu Sou Filho do Mato'
+      ]
+    },
+    'chur-10pol-10': {
+      nome: 'Churrasco 10pol. - Lote 10',
+      subtitulo: '10 polegadas · 3mm · Aço Inox 420C · Cabo em resina · Bainha em couro inclusa',
+      foto: 'fotos/churrasco-10pol-10.jpeg',
+      preco: 135,
+      modelos: [
+        'Santos', 'Vasco', 'São Paulo', 'Botafogo', 'Grêmio',
+        'Cruzeiro', 'São Paulo Mod.2', 'Vasco Mod.2', 'São Paulo Mod.3', 'Grêmio Mod.2'
+      ]
+    },
+    'chur-10pol-9': {
+      nome: 'Churrasco 10pol. - Lote 9',
+      subtitulo: '10 polegadas · 3mm · Aço Inox 420C · Cabo em resina · Bainha em couro inclusa',
+      foto: 'fotos/churrasco-10pol-9.jpeg',
+      preco: 135,
+      modelos: ['Mod.1', 'Mod.2', 'Mod.3', 'Mod.4', 'Mod.5', 'Mod.6', 'Mod.7', 'Mod.8', 'Mod.9', 'Mod.10']
+    },
+    'chur-10pol-8': {
+      nome: 'Churrasco 10pol. - Lote 8',
+      subtitulo: '10 polegadas · 3mm · Aço Inox 420C · Cabo em resina · Bainha em couro inclusa',
+      foto: 'fotos/churrasco-10pol-8.jpeg',
+      preco: 135,
+      modelos: [
+        'Gado', 'Chevette', 'Cowboy', 'Heineken', 'Mestre do Churrasco',
+        'Águia', 'Justiceiro', 'Heineken Mod.2', 'Brasil', 'Brasil Mod.2',
+        'Corona', 'Jesus', 'Tenha Fé Mas Vá Armado'
+      ]
+    },
+    'chur-10pol-7': {
+      nome: 'Churrasco 10pol. - Lote 7',
+      subtitulo: '10 polegadas · 3mm · Aço Inox 420C · Cabo em resina · Bainha em couro inclusa',
+      foto: 'fotos/churrasco-10pol-7.jpeg',
+      preco: 135,
+      modelos: [
+        'Heineken', 'Heineken Mod.2', 'Kombi', 'Mestre do Churrasco', 'Sextooou!',
+        'Rifle', 'Milionário e José Rico', 'Pistola', 'Chevette', 'Caçador'
+      ]
+    },
+    'chur-10pol-6': {
+      nome: 'Churrasco 10pol. - Lote 6',
+      subtitulo: '10 polegadas · 3mm · Aço Inox 420C · Cabo em resina · Bainha em couro inclusa',
+      foto: 'fotos/churrasco-10pol-6.jpeg',
+      preco: 135,
+      modelos: [
+        'Cruzeiro', 'Corinthians', 'São Paulo', 'Internacional', 'São Paulo Mod.2',
+        'Atlético Mineiro', 'Botafogo', 'Figueirense', 'Botafogo Mod.2'
+      ]
+    },
+    'chur-10pol-5': {
+      nome: 'Churrasco 10pol. - Lote 5',
+      subtitulo: '10 polegadas · 3mm · Aço Inox 420C · Cabo em resina · Bainha em couro inclusa',
+      foto: 'fotos/churrasco-10pol-5.jpeg',
+      preco: 135,
+      modelos: [
+        'Jack Daniels', 'Bruto Rústico É Sistemático', 'Escorpião', 'Justiceiro',
+        'Gado', 'Cavalo', 'Volvo', 'Churrascoterapia', 'Peixe', 'Entalhada', 'Bolsonaro'
+      ]
+    },
+    'chur-10pol-4': {
+      nome: 'Churrasco 10pol. - Lote 4',
+      subtitulo: '10 polegadas · 3mm · Aço Inox 420C · Cabo em resina · Bainha em couro inclusa',
+      foto: 'fotos/churrasco-10pol-4.jpeg',
+      preco: 135,
+      modelos: [
+        'Justiceiro', 'Brasil', 'Milionário e José Rico', 'Caçador', 'Jack Daniels',
+        'Jesus', 'Volvo', 'Churrascoterapia', 'Pescaria', 'Avengers'
+      ]
+    },
+    'chur-10pol-3': {
+      nome: 'Churrasco 10pol. - Lote 3',
+      subtitulo: '10 polegadas · 3mm · Aço Inox 420C · Cabo em resina · Bainha em couro inclusa',
+      foto: 'fotos/churrasco-10pol-3.jpeg',
+      preco: 135,
+      modelos: [
+        'Avaí', 'Botafogo', 'Fluminense', 'São Paulo', 'Fluminense Mod.2',
+        'São Paulo Mod.2', 'Atlético Mineiro', 'Vasco', 'Santos', 'Santos Mod.2'
+      ]
+    },
+    'chur-10pol-2': {
+      nome: 'Churrasco 10pol. - Lote 2',
+      subtitulo: '10 polegadas · 3mm · Aço Inox 420C · Cabo em resina · Bainha em couro inclusa',
+      foto: 'fotos/churrasco-10pol-2.jpeg',
+      preco: 135,
+      modelos: ['Agro É Top', 'Cabo Rosa', 'Corona', 'Sem Entalhe', 'Família', 'Trator', 'Vermelho', 'Azul', 'Lobo']
+    },
+    'chur-10pol-1': {
+      nome: 'Churrasco 10pol. - Lote 1',
+      subtitulo: '10 polegadas · 3mm · Aço Inox 420C · Cabo em resina · Bainha em couro inclusa',
+      foto: 'fotos/churrasco-10pol-1.jpeg',
+      preco: 135,
+      modelos: [
+        'Pescaria', 'Nossa Senhora', 'Corona', 'Nossa Senhora Mod.2', 'Nossa Senhora Mod.3',
+        'Gado', 'Caçador', 'Mestre do Churrasco', 'Caçador Mod.2', 'Bruto Rústico É Sistemático', 'Brasil'
+      ]
+    },
+    'chur-tematicas-2': {
+      nome: 'Churrasco 9pol.',
+      subtitulo: '9 polegadas · 3mm · Bainha em couro inclusa',
+      foto: 'fotos/WhatsApp Image 2026-05-06 at 10.05.45.jpeg',
+      preco: 127,
+      modelos: [
+        'Escavadeira - Modelo 1', 'Gado', 'Moto',
+        'Mestre Churrasqueiro', 'Sem Entalhe', 'Touro',
+        'Entalhada', 'Brasil', 'Escavadeira - Modelo 2',
+        'Sem Entalhe - Modelo 2', 'Fusca', 'Justiceiro', 'O Agro Não Para'
+      ]
+    },
+    'chur-tematicas': {
+      nome: 'Churrasco 9pol.',
+      subtitulo: '9 polegadas · 3mm · Bainha em couro inclusa',
+      foto: 'fotos/WhatsApp Image 2026-05-06 at 10.05.46 (1).jpeg',
+      preco: 127,
+      modelos: [
+        'Correntes - Modelo 1', 'Touro', 'Opala',
+        'Escavadeira', 'Correntes - Modelo 2', 'Sextou - Amstel',
+        'Sextou - Jack Daniels', 'Brasil', 'Entalhada',
+        'Correntes - Modelo 3', 'Sextou - Antarctica',
+        'Rifle', 'Heineken'
+      ]
+    },
+    'chur-5-5pol': {
+      nome: 'Faca Churrasco 5,5pol. - Inox 420c',
+      subtitulo: '5,5 polegadas · 2mm · Inox 420c · Cabos variados em resina · Bainha em couro inclusa',
+      foto: 'fotos/churrasco-5-5pol-1.jpeg',
+      preco: 89,
+      modelos: ['Cabo Amarelo Brilhante', 'Cabo Marfim', 'Cabo Preto Liso', 'Cabo Bicolor Preto/Madeira']
+    },
+    'chur-times': {
+      nome: 'Churrasco 9pol.',
+      subtitulo: '9 polegadas · 3mm · Bainha em couro inclusa',
+      foto: 'fotos/WhatsApp Image 2026-05-06 at 10.05.46.jpeg',
+      preco: 127,
+      modelos: [
+        'Palmeiras - Modelo 1', 'Fluminense - Modelo 1',
+        'Santos - Modelo 1', 'Santos - Modelo 2',
+        'Fluminense - Modelo 2', 'São Paulo - Modelo 1',
+        'São Paulo - Modelo 2', 'Palmeiras - Modelo 2',
+        'Athletico-PR', 'Fluminense - Modelo 3',
+        'Grêmio - Modelo 1', 'Palmeiras - Modelo 3',
+        'Grêmio - Modelo 2'
+      ]
+    },
+    'pic-tematicas-4': {
+      nome: 'Picanheira 8pol.',
+      subtitulo: '8 polegadas · 3mm · Bainha em couro inclusa',
+      foto: 'fotos/WhatsApp Image 2026-05-06 at 10.10.34 (1).jpeg',
+      preco: 125,
+      modelos: [
+        'AR-15', 'Caminhão', 'Mestre do Churrasco',
+        'Bolsonaro', 'Patrão', 'Pescaria',
+        'Mestre do Churrasco - Modelo 2', 'Justiceiro',
+        'Entalhada', 'Revólver'
+      ]
+    },
+    'pic-tematicas-3': {
+      nome: 'Picanheira 8pol.',
+      subtitulo: '8 polegadas · 3mm · Bainha em couro inclusa',
+      foto: 'fotos/WhatsApp Image 2026-05-06 at 10.10.35 (2).jpeg',
+      preco: 125,
+      modelos: [
+        'Sem Entalhe', 'Fusca', 'Entalhada - Modelo 1',
+        'Pescaria', 'Patrão', 'Super Pai',
+        'Chamas', 'Kombi', 'Entalhada - Modelo 2',
+        'Patrão - Modelo 2', 'Justiceiro'
+      ]
+    },
+    'pic-tematicas-2': {
+      nome: 'Picanheira 8pol.',
+      subtitulo: '8 polegadas · 3mm · Bainha em couro inclusa',
+      foto: 'fotos/WhatsApp Image 2026-05-06 at 10.10.35 (3).jpeg',
+      preco: 125,
+      modelos: [
+        'Super Pai', 'Entalhada - Modelo 1', '4X4',
+        'Mestre do Churrasco', 'Entalhada - Modelo 2', 'Touro',
+        'Brasil', 'Agro é Top', 'Kombi', 'Legendários'
+      ]
+    },
+    'pic-times-2': {
+      nome: 'Picanheira 8pol.',
+      subtitulo: 'Cabo em resina na cor do time · Escudo gravado na lâmina',
+      foto: 'fotos/WhatsApp Image 2026-05-06 at 10.10.35 (1).jpeg',
+      preco: 125,
+      modelos: [
+        'Palmeiras - Modelo 1', 'Flamengo - Modelo 1',
+        'Vasco', 'Santos - Modelo 1',
+        'Santos - Modelo 2', 'Palmeiras - Modelo 2',
+        'Flamengo - Modelo 2', 'Santos - Modelo 3',
+        'São Paulo', 'Fluminense'
+      ]
+    },
+    'pic-10pol-tematicas-8': {
+      nome: 'Picanheira 10pol.',
+      subtitulo: '10 polegadas · 3mm · Bainha em couro inclusa',
+      foto: 'fotos/picanheiras-10pol-tematicas-lote8.jpeg',
+      preco: 145,
+      modelos: [
+        'Modelo 1', 'Mestre do Churrasco', 'Skol',
+        'Modelo 4', 'Itaipava', 'Absolut Vodka',
+        'Arabescos', 'Churrascoterapia',
+        'Black Label', 'Heineken', 'FIFA World Cup 2026'
+      ]
+    },
+    'pic-10pol-tematicas-7': {
+      nome: 'Picanheira 10pol.',
+      subtitulo: '10 polegadas · 3mm · Bainha em couro inclusa',
+      foto: 'fotos/picanheiras-10pol-tematicas-lote7.jpeg',
+      preco: 145,
+      modelos: [
+        'Iron Maiden', 'Mestre do Churrasco', 'Budweiser',
+        'Red Hot Chili Peppers', 'Fusca', 'Yeshua Hamashia',
+        'Cavalos', 'Deadpool',
+        'Nossa Senhora', 'América'
+      ]
+    },
+    'pic-10pol-tematicas-6': {
+      nome: 'Picanheira 10pol.',
+      subtitulo: '10 polegadas · 3mm · Bainha em couro inclusa',
+      foto: 'fotos/picanheiras-10pol-tematicas-lote6.jpeg',
+      preco: 145,
+      modelos: [
+        'Agro É Top', 'Sextou!!!', 'Caçador',
+        'Escavadeira', 'Jack Skellington', 'Campari',
+        'Caçador - Mod. 2', 'Correntes',
+        'Fé, Amor, Família', 'Brasil'
+      ]
+    },
+    'pic-10pol-tematicas-5': {
+      nome: 'Picanheira 10pol.',
+      subtitulo: '10 polegadas · 3mm · Bainha em couro inclusa',
+      foto: 'fotos/picanheiras-10pol-tematicas-lote5.jpeg',
+      preco: 145,
+      modelos: [
+        'Tridente', 'AC/DC', 'Arabescos',
+        'Eu Sou Filho do Mato', 'Justiceiro', 'Nossa Senhora',
+        'Quem Pesca Vive Mais', 'Modelo 8',
+        'Maçonaria', 'Dragão'
+      ]
+    },
+    'pic-10pol-tematicas-4': {
+      nome: 'Picanheira 10pol.',
+      subtitulo: '10 polegadas · 3mm · Bainha em couro inclusa',
+      foto: 'fotos/picanheiras-10pol-tematicas-lote4.jpeg',
+      preco: 145,
+      modelos: [
+        'Flávio Bolsonaro 2026', 'Nirvana', 'Tá Nervoso? Vai Pescar!',
+        'Yeshua Hamashia', 'Peixe', 'Correntes',
+        'Gado', 'Fusca',
+        'Tião Carreiro Só Modão', 'Kombi'
+      ]
+    },
+    'pic-10pol-tematicas-3': {
+      nome: 'Picanheira 10pol.',
+      subtitulo: '10 polegadas · 3mm · Bainha em couro inclusa',
+      foto: 'fotos/picanheiras-10pol-tematicas-lote3.jpeg',
+      preco: 145,
+      modelos: [
+        'Cavalos', 'Arabescos', 'Kiss',
+        'Gado', 'Eu Sou Filho do Mato', 'Campari',
+        'Sem Entalhe', 'Deus é Fiel',
+        'Metallica', 'Entalhada'
+      ]
+    },
+    'pic-10pol-tematicas-2': {
+      nome: 'Picanheira 10pol.',
+      subtitulo: '10 polegadas · 3mm · Bainha em couro inclusa',
+      foto: 'fotos/picanheiras-10pol-tematicas-lote2.jpeg',
+      preco: 145,
+      modelos: [
+        'Caçador', 'Entalhada', 'Correntes',
+        'Entalhada - Mod. 2', 'Kombi',
+        'Flávio Bolsonaro 2026', 'Sextou!!!',
+        'Churrasco', 'Escorpião', 'Escopeta'
+      ]
+    },
+    'pic-10pol-tematicas': {
+      nome: 'Picanheira 10pol.',
+      subtitulo: '10 polegadas · 3mm · Bainha em couro inclusa',
+      foto: 'fotos/picanheiras-10pol-tematicas-lote1.jpeg',
+      preco: 145,
+      modelos: [
+        'Entalhada - Mod. 1', 'FIFA World Cup 2026 - Mod. 1', 'Agro É Top',
+        'Pescaria', 'Pai Melhor do Mundo', 'Águia',
+        'Entalhada - Mod. 2', 'Porsche',
+        'FIFA World Cup 2026 - Mod. 2', 'Kombi'
+      ]
+    },
+    'pic-10pol-times-4': {
+      nome: 'Picanheira 10pol.',
+      subtitulo: 'Cabo em resina na cor do time · Escudo gravado na lâmina',
+      foto: 'fotos/picanheiras-10pol-times-lote4.jpeg',
+      preco: 145,
+      modelos: [
+        'Grêmio - Mod. 1', 'Corinthians - Mod. 1', 'Atlético-MG',
+        'Santos', 'São Paulo',
+        'Corinthians - Mod. 2', 'Vitória',
+        'Grêmio - Mod. 2', 'Corinthians - Mod. 3', 'Cruzeiro'
+      ]
+    },
+    'pic-10pol-times-3': {
+      nome: 'Picanheira 10pol.',
+      subtitulo: 'Cabo em resina na cor do time · Escudo gravado na lâmina',
+      foto: 'fotos/picanheiras-10pol-times-lote3.jpeg',
+      preco: 145,
+      modelos: [
+        'Santos', 'São Paulo - Mod. 1', 'Athletico-PR',
+        'São Paulo - Mod. 2', 'Internacional',
+        'Fluminense - Mod. 1', 'Atlético-MG',
+        'São Paulo - Mod. 3', 'Coritiba', 'Fluminense - Mod. 2'
+      ]
+    },
+    'pic-10pol-times-2': {
+      nome: 'Picanheira 10pol.',
+      subtitulo: 'Cabo em resina na cor do time · Escudo gravado na lâmina',
+      foto: 'fotos/picanheiras-10pol-times-lote2.jpeg',
+      preco: 145,
+      modelos: [
+        'Cruzeiro', 'Santos - Modelo 1', 'Fluminense',
+        'Atlético-MG', 'São Paulo', 'Corinthians',
+        'Vitória', 'Sport Club do Recife',
+        'Internacional', 'Santos - Modelo 2'
+      ]
+    },
+    'pic-10pol-times': {
+      nome: 'Picanheira 10pol.',
+      subtitulo: 'Cabo em resina na cor do time · Escudo gravado na lâmina',
+      foto: 'fotos/pic-10pol-times.jpeg',
+      preco: 145,
+      modelos: [
+        'Santos', 'Fluminense', 'Internacional',
+        'Vitória', 'Corinthians',
+        'Vasco - Modelo 1', 'Botafogo',
+        'Cruzeiro', 'Vasco - Modelo 2',
+        'Atlético Mineiro'
+      ]
+    },
+    'pic-8-5pol': {
+      nome: 'Picanheira 8,5pol.',
+      subtitulo: 'Cabo montado · Bainha em couro inclusa',
+      foto: 'fotos/picanheiras-8-5pol.jpeg',
+      preco: 125,
+      modelos: [
+        'Modelo 1', 'Modelo 2', 'Modelo 3', 'Modelo 4', 'Modelo 5',
+        'Modelo 6', 'Modelo 7', 'Modelo 8', 'Modelo 9', 'Modelo 10'
+      ]
+    },
+    'esp-fulltang': {
+      nome: 'Fulltang 8/9pol.',
+      subtitulo: 'Cabo em Imbuia · Pinos dourados · Bainha em couro inclusa',
+      foto: 'fotos/especiais-fulltang-8-9pol.jpeg',
+      preco: 109,
+      modelos: [
+        'Lisa - 9pol', 'Lisa - 9pol Mod. 2',
+        'Lisa - 8pol', 'Lisa - 8pol Mod. 2',
+        'Serrilhada',
+        'Com Guarda - Serrilhada', 'Com Guarda - Lisa',
+        'Lisa - 8pol Mod. 3', 'Lisa - 9pol Mod. 3',
+        'Com Furo - 9pol', 'Com Furo - 8pol'
+      ]
+    },
+    'esp-fulltang-10-1': {
+      nome: 'Full Tang 10pol. - Cabo Montado',
+      subtitulo: '10 polegadas · 4mm · Aço Inox 420C · Cabo montado · Bainha em couro inclusa',
+      foto: 'fotos/especiais-fulltang-10pol-1.jpeg',
+      preco: 179,
+      modelos: [
+        'Heineken', 'Heineken Mod.2', 'Mestre do Churrasco', 'Corona', 'Estampa Animal',
+        'Corona Mod.2', 'Gado', 'Pescaria', 'Trator', 'Dólar'
+      ]
+    },
+    'imp-cutelo': {
+      nome: 'Cutelo Importado 7pol.',
+      subtitulo: '7 polegadas · Importado · Cabo em madeira · Bainha em couro inclusa',
+      foto: 'fotos/importados-cutelos-7pol-1.jpeg',
+      preco: 89,
+      modelos: ['Marteleado', 'Polido', 'Gravado']
+    },
+    'imp-cutelo-2': {
+      nome: 'Cutelo Importado 7pol. - Lote 2',
+      subtitulo: '7 polegadas · Importado · Cabo em madeira com guarda · Bainha em couro inclusa',
+      foto: 'fotos/importados-cutelos-7pol-2.jpeg',
+      preco: 89,
+      modelos: ['Brut Forg', 'Marteleado', 'Damasco Linear']
+    },
+    'imp-cutelo-damasco': {
+      nome: 'Cutelo Damasco - Com Caixa',
+      subtitulo: 'Lâmina padrão damasco · Cabo em madeira · Acompanha caixa presente',
+      foto: 'fotos/importados-cutelos-damasco-caixa-1.jpeg',
+      preco: 99,
+      modelos: []
+    },
+    'imp-coreadeira': {
+      nome: 'Coreadeira Importada',
+      subtitulo: 'Faca corta couro · Importada · Argola no cabo · Lâmina inox polida · Bainha em couro inclusa',
+      foto: 'fotos/importados-coreadeira-1.jpeg',
+      preco: 59,
+      modelos: []
+    },
+    'imp-coreadeira-4pol': {
+      nome: 'Coreadeira Importada 4pol.',
+      subtitulo: '4 polegadas · Importada · Cabo em madeira natural · Guarda em inox · Bainha em couro inclusa',
+      foto: 'fotos/importados-coreadeira-4pol-1.jpeg',
+      preco: 49,
+      modelos: []
+    },
+    'imp-mini-faca': {
+      nome: 'Mini Faca Importada 3pol.',
+      subtitulo: '3 polegadas · Importada · Lâmina Brut Forg · Cabo em madeira · Bainha em couro inclusa',
+      foto: 'fotos/importados-mini-faca-3pol-1.jpeg',
+      preco: 39,
+      modelos: ['Cabo Madeira Clara', 'Cabo Madeira Escura']
+    },
+    'acess-garfos': {
+      nome: 'Garfo 10pol. - Inox',
+      subtitulo: '10 polegadas · Inox · Bainha em couro inclusa',
+      foto: 'fotos/acessorios-garfos-10pol-1.jpeg',
+      preco: 49,
+      modelos: ['Cabo de Osso', 'Cabo em Zamac']
+    },
+    'acess-tabua-teca': {
+      nome: 'Tábua em Madeira Teca',
+      subtitulo: '24x44x2,5cm · Madeira teca · Borda em plástico colorido',
+      foto: 'fotos/acessorios-tabuas-teca-1.jpeg',
+      preco: 75,
+      modelos: ['Borda Preta', 'Borda Verde', 'Borda Vermelha', 'Borda Branca']
+    },
+    'acess-tabua-tematica': {
+      nome: 'Tábua Teca Temática 30x50cm',
+      subtitulo: '30x50x2,5cm · Madeira teca · Estampa em medalhão com acabamento em resina',
+      foto: 'fotos/acessorios-tabuas-teca-tematicas-1.jpeg',
+      preco: 99,
+      modelos: ['Pescador', 'Tucunaré', 'Robalo', 'Cavalo']
+    },
+    'acess-tabua-tematica-2': {
+      nome: 'Tábua Teca Temática - Logos & Símbolos',
+      subtitulo: 'Madeira teca · Estampa em medalhão com acabamento em resina',
+      foto: 'fotos/acessorios-tabuas-teca-logos-1.jpeg',
+      preco: 99,
+      modelos: [
+        'Nossa Senhora Aparecida', 'Heineken', 'Jack Daniel\'s',
+        'Boi', 'Caveira', 'Mestre do Churrasco', 'Bandeira do Brasil',
+        'Pescador', 'Tucunaré'
+      ]
+    },
+    'acess-tabua-times': {
+      nome: 'Tábua Teca Temática - Times de Futebol',
+      subtitulo: 'Madeira teca · Escudo do time em medalhão com acabamento em resina',
+      foto: 'fotos/acessorios-tabuas-teca-times-1.jpeg',
+      preco: 99,
+      modelos: [
+        'Remo', 'Paysandu', 'Atlético Mineiro', 'São Paulo', 'Grêmio',
+        'Flamengo', 'Corinthians', 'Vasco da Gama', 'Internacional',
+        'Palmeiras', 'Santos', 'Cruzeiro'
+      ]
+    },
+    'acess-isqueiro': {
+      nome: 'Isqueiro Temático',
+      subtitulo: 'Estilo Zippo · Gravação em relevo · Disponível em 6 temas',
+      foto: 'fotos/acessorios-isqueiros-tematicos-1.jpeg',
+      preco: 34,
+      modelos: ['Lure Fishing', 'Gun Battle', 'Motocicleta', 'Militar / Fuzileiro', 'American Legends', 'Folha Cannabis']
+    },
+    'acess-mini-chaveiro': {
+      nome: 'Mini Faca Chaveiro',
+      subtitulo: 'Mini faca decorativa · Lâmina gravada · Guarda em latão · Corrente e bainha em couro inclusa',
+      foto: 'fotos/acessorios-mini-chaveiro-1.jpeg',
+      preco: 25,
+      modelos: ['Cabo Verde', 'Cabo Preto']
+    },
+    'acess-caixinha': {
+      nome: 'Caixinha Presente',
+      subtitulo: 'Caixinha preta para presente · Gravação de logo ou arte inclusa como brinde',
+      foto: 'fotos/acessorios-caixinha-1.jpeg',
+      preco: 14,
+      modelos: []
+    },
+    'acess-expositor-7': {
+      nome: 'Expositor para 7 Facas',
+      subtitulo: 'Suporte em MDF · Capacidade para 7 facas · Sem as facas',
+      foto: 'fotos/acessorios-expositor-7facas-1.jpeg',
+      preco: 50,
+      modelos: []
+    },
+    'acess-chaira': {
+      nome: 'Chaira para Afiação',
+      subtitulo: 'Haste em aço para afiação de facas · Disponível em 3 modelos de cabo',
+      foto: 'fotos/acessorios-chairas-1.jpeg',
+      preco: 89,
+      modelos: ['Cabo Preto', 'Cabo de Osso', 'Cabo Dourado Ornamental']
+    },
+    'brindes-kit': {
+      nome: 'Kit Brindes Personalizados',
+      subtitulo: 'Selecione um ou mais itens · Pedido mínimo 10 peças iguais por item personalizado',
+      foto: 'fotos/brindes-tabua-faca-chaveiro-1.jpeg',
+      preco: 0,
+      multiselect: true,
+      modelos: [
+        { nome: 'Faca 8pol - Personalizada',  preco: 112, personalizado: true },
+        { nome: 'Tábua Teca - Personalizada', preco: 80,  personalizado: true },
+        { nome: 'Chaveiro Fuzil',             preco: 15,  personalizado: false }
+      ]
+    },
+    'brindes-picanheira': {
+      nome: 'Picanheira 10pol. - Personalizada',
+      subtitulo: 'Inox 420c · 3mm · Cabo resinado · Logo ou arte gravados na lâmina · Pedido mínimo 10 peças iguais',
+      foto: 'fotos/picanheiras-brinde-personalizado-1.jpeg',
+      preco: 145,
+      modelos: [],
+      personalizado: true
+    },
+    'brindes-kit-brutforg': {
+      nome: 'Kit Brut Forg + Tábua - Personalizado',
+      subtitulo: 'Selecione um ou mais itens · Pedido mínimo 10 peças iguais por item personalizado',
+      foto: 'fotos/brindes-tabua-faca-brutforg-1.jpeg',
+      preco: 0,
+      multiselect: true,
+      modelos: [
+        { nome: 'Faca 8pol Brut Forg - Personalizada', preco: 94,  personalizado: true },
+        { nome: 'Tábua Teca - Personalizada',          preco: 80,  personalizado: true }
+      ]
+    },
+    'esp-ximango-carbono': {
+      nome: 'Ximango 12pol. - Carbono 1070',
+      subtitulo: 'Aço carbono 1070 · 3mm · Guarda em S · Cabo em madeira natural · Bainha em couro inclusa',
+      foto: 'fotos/especiais-ximango-12pol-carbono-1.jpeg',
+      preco: 117,
+      modelos: []
+    },
+    'esp-lingua-ximango': {
+      nome: 'Língua de Ximango 12pol.',
+      subtitulo: 'Inox 420c · Fulltang · 3mm · Cabo em Jacarandá Violeta · Bainha em couro inclusa',
+      foto: 'fotos/especiais-lingua-ximango-12pol-1.jpeg',
+      preco: 140,
+      modelos: []
+    },
+    'esp-bowie': {
+      nome: 'Bowie 10pol. - Carbono 1070',
+      subtitulo: '10 polegadas · 5mm · Aço carbono 1070 · Lombada serrilhada · Cabo em madeira · Bainha em couro inclusa',
+      foto: 'fotos/especiais-bowie-10pol-1.jpeg',
+      preco: 129,
+      modelos: []
+    },
+    'esp-adaga': {
+      nome: 'Adaga 5pol. - Inox 420c',
+      subtitulo: '5 polegadas · 2mm · Inox 420c · Cabo em chifre com faixa decorativa · Bainha em couro inclusa',
+      foto: 'fotos/especiais-adaga-5pol-1.jpeg',
+      preco: 89,
+      modelos: [
+        { nome: 'Faixa Vermelha', foto: 'fotos/especiais-adaga-5pol-1.jpeg' },
+        { nome: 'Faixa Azul',     foto: 'fotos/especiais-adaga-5pol-azul-1.jpeg' },
+        { nome: 'Faixa Dourada',  foto: 'fotos/especiais-adaga-5pol-dourada-1.jpeg' },
+        { nome: 'Faixa Rosa',     foto: 'fotos/especiais-adaga-5pol-rosa-1.jpeg' },
+        { nome: 'Topo Marfim',    foto: 'fotos/especiais-adaga-5pol-marfim-1.jpeg' }
+      ]
+    },
+    'esp-adaga-cervo': {
+      nome: 'Adaga Cervo - Inox 420c',
+      subtitulo: 'Fio duplo · 4mm · Inox 420c · Pomo redondo e gravação de cervo · Cabo em resina marfim · Bainha em couro inclusa',
+      foto: 'fotos/especiais-adaga-cervo-1.jpeg',
+      preco: 199,
+      modelos: []
+    },
+    'esp-gold-1': {
+      nome: 'Gold 9/10pol. - Lâmina Dourada',
+      subtitulo: '9 e 10 polegadas · 3mm · Aço Inox 420C · Lâmina dourada · Bainha em couro inclusa',
+      foto: 'fotos/especiais-gold-1.jpeg',
+      preco: 285,
+      modelos: ['Mod.1', 'Mod.2', 'Mod.3', 'Mod.4', 'Mod.5', 'Mod.6', 'Mod.7', 'Mod.8']
+    },
+    'esp-campeira-1': {
+      nome: 'Campeira Carbono 9pol. - Cabo em Osso',
+      subtitulo: '9 polegadas · 3mm · Aço Carbono · Cabo em osso · Bainha em couro inclusa',
+      foto: 'fotos/especiais-campeira-9pol-1.jpeg',
+      preco: 75,
+      modelos: [
+        'Moto', 'Nossa Senhora', 'Os Meninos da Pecuária Mod.1', 'Entalhada Mod.1', 'Touro Mod.1',
+        'Fuzil', 'Bruto Memo Mod.1', 'Os Meninos da Pecuária Mod.2', 'Touro Mod.2', 'Entalhada Mod.2', 'Grêmio', 'Bruto Memo Mod.2'
+      ]
+    },
+    'esp-campeira-2': {
+      nome: 'Campeira Carbono 9pol. - Lote 2',
+      subtitulo: '9 polegadas · 3mm · Aço Carbono · Cabo em osso · Bainha em couro inclusa',
+      foto: 'fotos/especiais-campeira-9pol-2.jpeg',
+      preco: 75,
+      modelos: [
+        'Entalhada', 'Cavalo Mod.1', 'Bruto Memo', 'Cavalo Mod.2', 'Sem Entalhe',
+        'Jesus', 'Justiceiro', 'Costela', 'Grêmio', 'Os Menino da Pecuária', 'Moto'
+      ]
+    },
+    'esp-campeira-3': {
+      nome: 'Campeira Carbono 9pol. - Lote 3',
+      subtitulo: '9 polegadas · 3mm · Aço Carbono · Cabo em osso · Bainha em couro inclusa',
+      foto: 'fotos/especiais-campeira-9pol-3.jpeg',
+      preco: 75,
+      modelos: [
+        'Mod.1', 'Mod.2', 'Mod.3', 'Mod.4', 'Mod.5', 'Mod.6',
+        'Mod.7', 'Mod.8', 'Mod.9', 'Mod.10', 'Mod.11', 'Mod.12'
+      ]
+    },
+    'esp-cutelo-1': {
+      nome: 'Cutelo 9pol. - Cabo Montado',
+      subtitulo: '9 polegadas · 4mm · Inox polido · Cabo montado · Bainha em couro inclusa',
+      foto: 'fotos/especiais-cutelo-9pol-1.jpeg',
+      preco: 185,
+      modelos: [
+        'São Paulo', 'Terço', 'Entalhada', 'Lobo', 'Flamengo', 'Super Pai'
+      ]
+    },
+    'esp-cutelo-2': {
+      nome: 'Cutelo 9pol. - Lote 2',
+      subtitulo: '9 polegadas · 4mm · Inox polido · Cabo montado · Bainha em couro inclusa',
+      foto: 'fotos/especiais-cutelo-9pol-2.jpeg',
+      preco: 185,
+      modelos: [
+        'Grêmio Mod.1', 'Palmeiras', 'Grêmio Mod.2', 'Cruzeiro', 'Sextooou!', 'São Paulo'
+      ]
+    },
+    'esp-cutelo-3': {
+      nome: 'Cutelo 9pol. - Lote 3',
+      subtitulo: '9 polegadas · 4mm · Inox polido · Cabo montado · Bainha em couro inclusa',
+      foto: 'fotos/especiais-cutelo-9pol-3.jpeg',
+      preco: 185,
+      modelos: [
+        'Palmeiras', 'Flamengo', 'São Paulo', 'Corinthians'
+      ]
+    },
+    'esp-cutelo-4': {
+      nome: 'Cutelo 9pol. - Lote 4',
+      subtitulo: '9 polegadas · 4mm · Inox polido · Cabo montado · Bainha em couro inclusa',
+      foto: 'fotos/especiais-cutelo-9pol-4.jpeg',
+      preco: 185,
+      modelos: [
+        'Heineken', 'Pistola', 'Super Pai', 'Lobo', 'Pescaria',
+        'Revólver Mod.1', 'América', 'Bruto Rústico É Sistemático', 'Revólver Mod.2'
+      ]
+    },
+    'kits-duplo': {
+      nome: 'Kit Duplo Faca + Garfo 10pol.',
+      subtitulo: '10 polegadas · 3mm · Faca + garfo · Estojo em couro · Cabo montado',
+      foto: 'fotos/kits-duplo-brasil-1.jpeg',
+      preco: 255,
+      modelos: [
+        { nome: 'Brasil',       foto: 'fotos/kits-duplo-brasil-1.jpeg' },
+        { nome: 'Gado',         foto: 'fotos/kits-duplo-gato-1.jpeg' },
+        { nome: 'Corinthians',  foto: 'fotos/kits-duplo-corinthians-1.jpeg' },
+        { nome: 'Grêmio Mod.1', foto: 'fotos/kits-duplo-gremio-1.jpeg' },
+        { nome: 'Grêmio Mod.2', foto: 'fotos/kits-duplo-gremio-2.jpeg' },
+        { nome: 'Santos',       foto: 'fotos/kits-duplo-santos-1.jpeg' },
+        { nome: 'São Paulo',    foto: 'fotos/kits-duplo-saopaulo-1.jpeg' },
+        { nome: 'Cruzeiro',      foto: 'fotos/kits-duplo-cruzeiro-1.jpeg' },
+        { nome: 'Internacional', foto: 'fotos/kits-duplo-internacional-1.jpeg' },
+        { nome: 'Correntes',     foto: 'fotos/kits-duplo-correntes-1.jpeg' },
+        { nome: 'Brasil Liso',  foto: 'fotos/kits-duplo-brasil-liso-1.jpeg' },
+        { nome: 'Águia',        foto: 'fotos/kits-duplo-lobo-1.jpeg' },
+        { nome: 'Sem Entalhe',  foto: 'fotos/kits-duplo-sem-entalhe-1.jpeg' },
+        { nome: 'Brasil Gold',       foto: 'fotos/kits-duplo-brasil-gold-1.jpeg' },
+        { nome: 'Heineken',          foto: 'fotos/kits-duplo-heineken-1.jpeg' },
+        { nome: 'Brasil Sem Entalhe', foto: 'fotos/kits-duplo-brasil-sem-entalhe-1.jpeg' }
+      ]
+    },
+    'kits-petisqueira-rustico': {
+      nome: 'Kit Petisqueira Rústico',
+      subtitulo: 'Base em tronco rústico · Garfos para petisco inclusos',
+      foto: 'fotos/kits-petisqueira-rustico-1.jpeg',
+      preco: 99.99,
+      modelos: ['Tridente', 'Garra de Urso']
+    },
+    'kits-churrasco-imp': {
+      nome: 'Kit Churrasco Importado',
+      subtitulo: 'Faca de churrasco + garfo · Cabo em madeira · Acompanha estojo em nylon com zíper',
+      foto: 'fotos/kits-churrasco-importado-1.jpeg',
+      preco: 49,
+      modelos: []
+    },
+    'kits-espeto-5': {
+      nome: 'Kit Espeto 5 peças - Inox',
+      subtitulo: '5 espetos em inox · Estojo em tecido com alça · Personalização com logo sob consulta',
+      foto: 'fotos/kits-espeto-5pecas-1.jpeg',
+      preco: 169,
+      modelos: ['Estojo Azul', 'Estojo Preto']
+    },
+    'kits-petisqueira-produto': {
+      nome: 'Petisqueira + Expositor',
+      subtitulo: 'Tábua de madeira · Expositor para faca · Sem a faca',
+      foto: 'fotos/kits-petisqueira-expositor-1.jpeg',
+      preco: 109,
+      modelos: [
+        { nome: 'Tridente',      fotos: ['fotos/kits-petisqueira-expositor-1.jpeg', 'fotos/kits-petisqueira-expositor-2.jpeg'] },
+        { nome: 'Garra de Urso', fotos: ['fotos/kits-petisqueira-garra-urso-1.jpeg', 'fotos/kits-petisqueira-garra-urso-2.jpeg'] }
+      ]
+    }
+  };
+
+  /* ─── ESTADO ─── */
+  var carrinho = (function() {
+    try { return JSON.parse(localStorage.getItem('carrinho-facas')) || {}; } catch(e) { return {}; }
+  })();
+  var modalId = null;
+  var modalModelo = null;
+  var modalQtdNum = 1;
+  var modalMultiselect = false;
+
+  /* ─── MODAL ─── */
+  function abrirModal(id, preSelecionar) {
+    modalId = id;
+    modalModelo = null;
+    modalQtdNum = 1;
+
+    var col = COLECOES[id];
+    modalMultiselect = col.multiselect || false;
+    var tituloSufixo = modalMultiselect ? ' - Selecione os itens' : (col.modelos.length > 0 ? ' - Escolha o modelo' : '');
+    document.getElementById('modal-titulo').textContent = col.nome + tituloSufixo;
+    document.getElementById('modal-subtitulo').textContent = col.subtitulo;
+    document.getElementById('modal-num').textContent = '1';
+    document.getElementById('modal-total').textContent = 'R$ ' + col.preco.toFixed(2).replace('.', ',');
+    lightboxSrc = col.foto || '';
+    document.getElementById('modal-foto').style.backgroundImage = col.foto ? "url('" + col.foto + "')" : 'none';
+
+    var chips = '';
+    var thumbs = '';
+    var temThumbs = false;
+    for (var i = 0; i < col.modelos.length; i++) {
+      var m = col.modelos[i];
+      var nome = typeof m === 'object' ? m.nome : m;
+      var modeloFotos = typeof m === 'object' ? (m.fotos || (m.foto ? [m.foto] : [])) : [];
+      var primeiraFoto = modeloFotos.length > 0 ? modeloFotos[0] : '';
+      var precoLabel = (typeof m === 'object' && m.preco && modalMultiselect) ? ' · R$ ' + m.preco.toFixed(2).replace('.', ',') : '';
+      chips += '<button class="chip" data-idx="' + i + '" data-nome="' + nome.replace(/"/g, '&quot;') + '" onclick="selecionarChip(this, \'' + nome.replace(/'/g, '\\\'') + '\', \'' + primeiraFoto + '\')">' + nome + precoLabel + '</button>';
+      for (var j = 0; j < modeloFotos.length; j++) {
+        temThumbs = true;
+        thumbs += '<div class="modal-thumb" data-idx="' + i + '" style="background-image:url(\'' + modeloFotos[j] + '\')" onclick="selecionarThumb(this, \'' + modeloFotos[j] + '\', ' + i + ')" title="' + nome + '"></div>';
+      }
+    }
+    document.getElementById('modal-chips').innerHTML = chips;
+    document.getElementById('modal-thumbs').innerHTML = temThumbs ? thumbs : '';
+
+    if (!modalMultiselect) {
+      var alvo = preSelecionar
+        ? document.querySelector('#modal-chips .chip[data-nome="' + preSelecionar.replace(/"/g, '&quot;') + '"]')
+        : null;
+      var chipInicial = alvo || document.querySelector('#modal-chips .chip');
+      if (chipInicial) chipInicial.click();
+    } else {
+      atualizarTotalModal();
+    }
+
+    document.getElementById('modal-highlight').innerHTML = '';
+    document.getElementById('modal-overlay').classList.add('ativo');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function fecharModal() {
+    document.getElementById('modal-overlay').classList.remove('ativo');
+    document.body.style.overflow = '';
+  }
+
+  /* ─── LIGHTBOX ─── */
+  var lightboxSrc = '';
+  function abrirLightbox() {
+    if (!lightboxSrc) return;
+    document.getElementById('lightbox-img').src = lightboxSrc;
+    document.getElementById('lightbox').classList.add('ativo');
+  }
+  function fecharLightbox() {
+    document.getElementById('lightbox').classList.remove('ativo');
+  }
+
+  function fecharModalFora(e) {
+    if (e.target === document.getElementById('modal-overlay')) fecharModal();
+  }
+
+  function atualizarHighlight(pos, imgAspect) {
+    var svg = document.getElementById('modal-highlight');
+    svg.innerHTML = '';
+    if (!pos || !imgAspect) return;
+    var div = document.getElementById('modal-foto');
+    var divW = div.offsetWidth;
+    var divH = div.offsetHeight;
+    var divAspect = divW / divH;
+    var imgW, imgH, offsetX, offsetY;
+    if (divAspect > imgAspect) {
+      imgH = divH; imgW = divH * imgAspect;
+      offsetX = (divW - imgW) / 2; offsetY = 0;
+    } else {
+      imgW = divW; imgH = divW / imgAspect;
+      offsetX = 0; offsetY = (divH - imgH) / 2;
+    }
+    var cx = offsetX + pos.x / 100 * imgW;
+    var cy = offsetY + pos.y / 100 * imgH;
+    var r  = pos.r / 100 * Math.min(imgW, imgH);
+    var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', cx);
+    circle.setAttribute('cy', cy);
+    circle.setAttribute('r', r);
+    svg.appendChild(circle);
+  }
+
+  function selecionarChip(btn, modelo, foto) {
+    if (modalMultiselect) {
+      btn.classList.toggle('selecionado');
+      atualizarTotalModal();
+      return;
+    }
+    var chips = document.querySelectorAll('#modal-chips .chip');
+    for (var i = 0; i < chips.length; i++) chips[i].classList.remove('selecionado');
+    btn.classList.add('selecionado');
+    modalModelo = modelo;
+    if (foto) {
+      lightboxSrc = foto;
+      document.getElementById('modal-foto').style.backgroundImage = "url('" + foto + "')";
+      var idx = btn.getAttribute('data-idx');
+      var allThumbs = document.querySelectorAll('#modal-thumbs .modal-thumb');
+      for (var i = 0; i < allThumbs.length; i++) allThumbs[i].classList.remove('ativo');
+      var t = document.querySelector('#modal-thumbs .modal-thumb[data-idx="' + idx + '"]');
+      if (t) t.classList.add('ativo');
+    }
+    var col = COLECOES[modalId];
+    var idx2 = parseInt(btn.getAttribute('data-idx'));
+    var mObj = col.modelos[idx2];
+    atualizarHighlight(
+      (mObj && typeof mObj === 'object' && mObj.pos) ? mObj.pos : null,
+      col.imgAspect || null
+    );
+    atualizarTotalModal();
+  }
+
+  function selecionarThumb(thumb, foto, idx) {
+    var allThumbs = document.querySelectorAll('#modal-thumbs .modal-thumb');
+    for (var i = 0; i < allThumbs.length; i++) allThumbs[i].classList.remove('ativo');
+    thumb.classList.add('ativo');
+    lightboxSrc = foto;
+    document.getElementById('modal-foto').style.backgroundImage = "url('" + foto + "')";
+    var chips = document.querySelectorAll('#modal-chips .chip');
+    for (var i = 0; i < chips.length; i++) chips[i].classList.remove('selecionado');
+    var chip = document.querySelector('#modal-chips .chip[data-idx="' + idx + '"]');
+    if (chip) {
+      chip.classList.add('selecionado');
+      modalModelo = chip.textContent;
+    }
+    atualizarTotalModal();
+  }
+
+  function modalQtd(delta) {
+    modalQtdNum = Math.max(1, modalQtdNum + delta);
+    document.getElementById('modal-num').textContent = modalQtdNum;
+    atualizarTotalModal();
+  }
+
+  function atualizarTotalModal() {
+    var col = COLECOES[modalId];
+    var total = 0;
+    if (modalMultiselect) {
+      var selecionados = document.querySelectorAll('#modal-chips .chip.selecionado');
+      for (var i = 0; i < selecionados.length; i++) {
+        var idx = parseInt(selecionados[i].getAttribute('data-idx'));
+        total += col.modelos[idx].preco;
+      }
+    } else {
+      total = col.preco;
+    }
+    document.getElementById('modal-total').textContent = 'R$ ' + (total * modalQtdNum).toFixed(2).replace('.', ',');
+  }
+
+  function confirmarModal() {
+    var col = COLECOES[modalId];
+    if (modalMultiselect) {
+      var selecionados = document.querySelectorAll('#modal-chips .chip.selecionado');
+      if (selecionados.length === 0) { alert('Selecione ao menos um item.'); return; }
+      for (var i = 0; i < selecionados.length; i++) {
+        var idx = parseInt(selecionados[i].getAttribute('data-idx'));
+        var m = col.modelos[idx];
+        var cartId = modalId + '|' + m.nome;
+        if (carrinho[cartId]) {
+          carrinho[cartId].qty += modalQtdNum;
+        } else {
+          carrinho[cartId] = { nome: m.nome, preco: m.preco, qty: modalQtdNum, personalizado: m.personalizado || false, foto: m.foto || col.foto };
+        }
+      }
+      salvarCarrinho();
+      fecharModal();
+      renderCarrinho();
+      abrirCarrinho();
+      return;
+    }
+    if (!modalModelo && col.modelos.length > 0) {
+      alert('Selecione um modelo antes de adicionar.');
+      return;
+    }
+    var cartId = modalModelo ? modalId + '|' + modalModelo : modalId;
+    var nome = modalModelo ? col.nome + ' - ' + modalModelo : col.nome;
+
+    if (carrinho[cartId]) {
+      carrinho[cartId].qty += modalQtdNum;
+    } else {
+      carrinho[cartId] = { nome: nome, preco: col.preco, qty: modalQtdNum, personalizado: col.personalizado || false, foto: col.foto };
+    }
+
+    salvarCarrinho();
+    fecharModal();
+    renderCarrinho();
+    abrirCarrinho();
+  }
+
+  /* ─── CARRINHO SIMPLES (sem modal) ─── */
+  function addToCart(btn) {
+    if (btn.disabled) return;
+    var id    = btn.getAttribute('data-id');
+    var nome  = btn.getAttribute('data-nome');
+    var preco = parseFloat(btn.getAttribute('data-preco'));
+
+    carrinho[id] = { nome: nome, preco: preco, qty: (carrinho[id] ? carrinho[id].qty + 1 : 1) };
+    salvarCarrinho();
+
+    btn.disabled = true;
+    btn.classList.add('adicionado');
+    btn.textContent = '✓ Adicionado';
+    setTimeout(function() {
+      btn.classList.remove('adicionado');
+      btn.textContent = '+ Carrinho';
+      btn.disabled = false;
+    }, 1200);
+
+    renderCarrinho();
+    abrirCarrinho();
+  }
+
+  /* ─── ALTERAR QTD NO DRAWER ─── */
+  function salvarCarrinho() {
+    try { localStorage.setItem('carrinho-facas', JSON.stringify(carrinho)); } catch(e) {}
+  }
+
+  function alterarQtd(id, delta) {
+    if (!carrinho[id]) return;
+    carrinho[id].qty += delta;
+    if (carrinho[id].qty <= 0) delete carrinho[id];
+    salvarCarrinho();
+    renderCarrinho();
+  }
+
+  /* ─── RENDER CARRINHO ─── */
+  function renderCarrinho() {
+    var ids = Object.keys(carrinho);
+    var totalQty = 0, total = 0;
+    for (var i = 0; i < ids.length; i++) {
+      totalQty += carrinho[ids[i]].qty;
+      total    += carrinho[ids[i]].preco * carrinho[ids[i]].qty;
+    }
+
+    document.getElementById('carrinho-count').textContent = totalQty;
+    document.getElementById('total-valor').textContent = 'R$ ' + total.toFixed(2).replace('.', ',');
+    document.getElementById('btn-carrinho').classList.toggle('oculto', totalQty === 0);
+
+    var lista = document.getElementById('carrinho-lista');
+    if (ids.length === 0) {
+      lista.innerHTML = '<div id="carrinho-vazio"><div class="icone-v"><svg class="icon" width="44" height="44"><use href="#ic-knife"/></svg></div><p>Nenhum produto adicionado.<br>Escolha seus modelos preferidos!</p></div>';
+      return;
+    }
+
+    var html = '';
+    for (var j = 0; j < ids.length; j++) {
+      var id   = ids[j];
+      var item = carrinho[id];
+      var sub  = (item.preco * item.qty).toFixed(2).replace('.', ',');
+      var colId = id.split('|')[0];
+      var modeloId = id.indexOf('|') >= 0 ? id.split('|').slice(1).join('|') : '';
+      var fotoUrl = item.foto || (COLECOES[colId] ? COLECOES[colId].foto : '');
+      var onclickModal = 'fecharCarrinho();abrirModal(\'' + colId + '\'' + (modeloId ? ',\'' + modeloId.replace(/'/g, "\\'") + '\'' : '') + ')';
+      var fotoThumb = fotoUrl
+        ? '<div class="item-foto-thumb" style="background-image:url(\'' + fotoUrl + '\')" onclick="' + onclickModal + '" title="Ver produto"></div>'
+        : '';
+      html +=
+        '<div class="item-carrinho">' +
+          fotoThumb +
+          '<div class="item-info">' +
+            '<div class="item-nome" style="cursor:pointer" onclick="' + onclickModal + '">' + item.nome + '</div>' +
+            '<div class="item-preco-unit">R$ ' + item.preco.toFixed(2).replace('.', ',') + ' / un.</div>' +
+          '</div>' +
+          '<div class="item-qty">' +
+            '<button onclick="alterarQtd(\'' + id.replace(/'/g, "\\'") + '\', -1)">&#8722;</button>' +
+            '<span class="qty-num">' + item.qty + '</span>' +
+            '<button onclick="alterarQtd(\'' + id.replace(/'/g, "\\'") + '\', +1)">+</button>' +
+          '</div>' +
+          '<div class="item-subtotal">R$ ' + sub + '</div>' +
+        '</div>';
+    }
+    lista.innerHTML = html;
+  }
+
+  /* ─── ABRIR / FECHAR DRAWER ─── */
+  function abrirCarrinho() {
+    document.getElementById('carrinho-drawer').classList.add('aberto');
+    document.getElementById('overlay').classList.add('ativo');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function fecharCarrinho() {
+    document.getElementById('carrinho-drawer').classList.remove('aberto');
+    document.getElementById('overlay').classList.remove('ativo');
+    document.body.style.overflow = '';
+  }
+
+  /* ─── WHATSAPP ─── */
+  function pedirWhatsApp() {
+    var ids = Object.keys(carrinho);
+    if (ids.length === 0) { alert('Adicione pelo menos um produto ao carrinho.'); return; }
+
+    var baseUrl = window.location.href.replace(/[^\/]*$/, '');
+    var msg = 'Olá! Gostaria de fazer um pedido:\n\n';
+    var total = 0;
+    var temPersonalizado = false;
+    var nomesPersonalizados = [];
+    for (var i = 0; i < ids.length; i++) {
+      var item = carrinho[ids[i]];
+      var sub  = item.preco * item.qty;
+      msg += '• ' + item.qty + 'x ' + item.nome + ' - R$ ' + sub.toFixed(2).replace('.', ',') + '\n';
+      if (item.foto) msg += '  📷 ' + baseUrl + item.foto + '\n';
+      total += sub;
+      if (item.personalizado) { temPersonalizado = true; nomesPersonalizados.push(item.nome); }
+    }
+    msg += '\n*Total: R$ ' + total.toFixed(2).replace('.', ',') + '*';
+    if (temPersonalizado) {
+      msg += '\n\n⚠️ *Item(ns) personalizado(s):*\n';
+      for (var j = 0; j < nomesPersonalizados.length; j++) msg += '• ' + nomesPersonalizados[j] + '\n';
+      msg += 'Pedido mínimo 10 peças iguais. Entraremos em contato para definir logo, arte e detalhes da personalização.';
+    }
+    msg += '\n\nPoderia confirmar a disponibilidade?';
+
+    window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg), '_blank');
+  }
+
+  /* ─── INICIALIZAR CARRINHO SALVO ─── */
+  renderCarrinho();
+
+  /* ─── CATÁLOGO COMPLETO ─── */
+  (function popularCatalogo() {
+    var grid = document.getElementById('catalogo-grid');
+    if (!grid) return;
+    var secoes = document.querySelectorAll('.secao');
+    secoes.forEach(function(sec) {
+      if (sec.id === 'catalogo') return;
+      var cards = sec.querySelectorAll('.card');
+      cards.forEach(function(card) {
+        var clone = card.cloneNode(true);
+        grid.appendChild(clone);
+      });
+    });
+  })();
+
+  /* ─── MENU MOBILE ─── */
+  function toggleMenuMobile() {
+    var drawer  = document.getElementById('mobile-nav-drawer');
+    var overlay = document.getElementById('mobile-nav-overlay');
+    var btn     = document.getElementById('btn-hamburguer');
+    var aberto  = drawer.classList.contains('aberto');
+    drawer.classList.toggle('aberto', !aberto);
+    overlay.classList.toggle('ativo', !aberto);
+    btn.classList.toggle('ativo', !aberto);
+    document.body.style.overflow = aberto ? '' : 'hidden';
+  }
+  function fecharMenuMobile() {
+    document.getElementById('mobile-nav-drawer').classList.remove('aberto');
+    document.getElementById('mobile-nav-overlay').classList.remove('ativo');
+    document.getElementById('btn-hamburguer').classList.remove('ativo');
+    document.body.style.overflow = '';
+  }
+
+  function toggleNavGrupo(btn) {
+    var sub = btn.nextElementSibling;
+    var jaAberto = btn.classList.contains('aberto');
+    document.querySelectorAll('.nav-grupo-btn.aberto').forEach(function(b) {
+      b.classList.remove('aberto');
+      b.nextElementSibling.classList.remove('aberto');
+    });
+    if (!jaAberto) {
+      btn.classList.add('aberto');
+      sub.classList.add('aberto');
+    }
+  }
+
+  function navParaSubcat(secaoId, subcatId) {
+    var drawerAberto = document.getElementById('mobile-nav-drawer').classList.contains('aberto');
+    var delay = drawerAberto ? 320 : 0;
+    fecharMenuMobile();
+    setTimeout(function() {
+      var secao = document.getElementById(secaoId);
+      if (!secao) return;
+      if (subcatId) {
+        var btns = secao.querySelectorAll('.subcat-btn');
+        for (var i = 0; i < btns.length; i++) {
+          if ((btns[i].getAttribute('onclick') || '').indexOf("'" + subcatId + "'") >= 0) {
+            btns[i].click();
+            break;
+          }
+        }
+      }
+      setTimeout(function() { secao.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+    }, delay);
+  }
+
+  /* ─── SMART STICKY HEADER ─── */
+  (function() {
+    var lastScroll = 0;
+    var ticking = false;
+    var nav = document.querySelector('body > nav');
+    var mobileHeader = document.getElementById('mobile-header');
+
+    function atualizar() {
+      var current = window.scrollY;
+      var esconder = current > lastScroll && current > 80;
+      nav.classList.toggle('nav-oculto', esconder);
+      mobileHeader.classList.toggle('nav-oculto', esconder);
+      lastScroll = current < 0 ? 0 : current;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function() {
+      if (!ticking) { requestAnimationFrame(atualizar); ticking = true; }
+    }, { passive: true });
+  })();
+
+  /* ─── ESC fecha modal ou drawer ─── */
+  document.addEventListener('keydown', function(e) {
+    if (e.key !== 'Escape') return;
+    if (document.getElementById('lightbox').classList.contains('ativo')) { fecharLightbox(); return; }
+    if (document.getElementById('modal-overlay').classList.contains('ativo')) { fecharModal(); return; }
+    fecharCarrinho();
+  });
+
+  // Popula o Catálogo Completo com todos os cards de todas as seções
+  (function popularCatalogo() {
+    const grid = document.getElementById('catalogo-grid');
+    const secoes = document.querySelectorAll('.secao:not(#catalogo)');
+    secoes.forEach(secao => {
+      secao.querySelectorAll('.card').forEach(card => {
+        const clone = card.cloneNode(true);
+        grid.appendChild(clone);
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
